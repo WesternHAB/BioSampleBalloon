@@ -1,64 +1,25 @@
+
+// Mission Specific Library. Struct definitions and Constants are in this library
+#include <WesternUHAB.h>
+
+// Ethernet Shield and SD Card Library
 #include <Ethernet.h>
 #include <SD.h>
 
-//TinyGPS++ needs install
+// GPS library. TinyGPS++ needs install
 #include <SoftwareSerial.h>
 #include <TinyGPS++.h>
 
+// SPI and Sensor Libraries
 #include <Wire.h>
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 
-// Pin definition for software SPI if needed
-#define BME_SCK 52
-#define BME_MISO 50
-#define BME_MOSI 51 
-#define BME_SS 53
-
-// Chip select pin for SPI interface for the SD card and Ethernet Shield
-#define SD_CHIPSELECT 53
-
-#define RX_PIN 0
-#define TX_PIN 1
-#define GPS_BAUD 9600
-
 //The interface of the BME sensor should be I2C
 Adafruit_BME280 bme; // I2C
 //Adafruit_BME280 bme(BME_SS); // hardware SPI
 //Adafruit_BME280 bme(BME_SS, BME_MOSI, BME_MISO, BME_SCK); // software SPI
-
-typedef struct timeObject {
-
-    uint8_t hour;
-    uint8_t minute;
-    uint8_t second;
-    
-} TimeObject;
-
-// bmeReading struct
-// temperature reading returns a signed int
-// pressure and humidity reading returns a float
-typedef struct bmeObject {
-    
-    signed int temperature;
-    float pressure;
-    float humidity;
-
-} BMEObject;
-
-// GPS Object Struct
-typedef struct gpsObject {
-    
-    long latitude;
-    long longitude;
-    long altitude;
-    long speed;
-    TimeObject time;
-    
-} GPSObject;
-
-
 
 // Declare BME sensor reading object
 BMEObject bmeSensorReading;
@@ -232,5 +193,47 @@ void readGPS() {
         }  
 
     }
+
+}
+
+
+/*
+
+This function reads the current altitude and returns a value for which altitude interval the payload is in. 
+This signals which chambers to open and close.
+
+Accepts: None
+Returns: int
+
+*/
+int altitudeIntervalCheck() {
+
+	switch(gpsObject.altitude) {
+
+		case 0 ... 1*ALTITUDE_INTERVAL:
+			return 0;
+
+		case 1*ALTITUDE_INTERVAL ... 2*ALTITUDE_INTERVAL:
+			return 1;
+
+		case 2*ALTITUDE_INTERVAL ... 3*ALTITUDE_INTERVAL:
+			return 2;
+
+		case 3*ALTITUDE_INTERVAL ... 4*ALTITUDE_INTERVAL:
+			return 3;
+
+		case 4*ALTITUDE_INTERVAL ... 5*ALTITUDE_INTERVAL:
+			return 4;
+
+		case 5*ALTITUDE_INTERVAL ... 6*ALTITUDE_INTERVAL:
+			return 5;
+
+		case 7*ALTITUDE_INTERVAL ... 8*ALTITUDE_INTERVAL:
+			return 6;
+
+		default:
+			return -1;
+
+	}
 
 }
