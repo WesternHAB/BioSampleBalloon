@@ -12,17 +12,7 @@
 #define TX_PIN 1
 #define GPS_BAUD 9600
 
-#define ALTITUDE_INTERVAL 5000
-
-// Chip select pin for SPI interface for the SD card and Ethernet Shield
-#define SD_CHIPSELECT 53
-
-// Define RX and TX pin for serial comms with GPS
-#define RX_PIN 0
-#define TX_PIN 1
-#define GPS_BAUD 9600
-
-// Altitude interval definition.
+// Define Altitude Interval
 #define ALTITUDE_INTERVAL 5000
 
 // Actuator Direction Pins Definition
