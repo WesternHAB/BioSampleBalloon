@@ -25,6 +25,37 @@
 // Altitude interval definition.
 #define ALTITUDE_INTERVAL 5000
 
+// Actuator Direction Pins Definition
+#define ACT1_PUSH 22
+#define ACT1_PULL 23
+
+#define ACT2_PUSH 24
+#define ACT2_PULL 25
+
+#define ACT3_PUSH 26
+#define ACT3_PULL 27
+
+#define ACT4_PUSH 28
+#define ACT4_PULL 29
+
+#define ACT5_PUSH 30
+#define ACT5_PULL 31
+
+#define ACT6_PUSH 32
+#define ACT6_PULL 33
+
+#define ACT7_PUSH 34
+#define ACT7_PULL 35
+
+// Actuator Enable Pins
+#define ACT1_EN 13
+#define ACT2_EN 12
+#define ACT3_EN 11
+#define ACT4_EN 10
+#define ACT5_EN 9
+#define ACT6_EN 8
+#define ACT7_EN 7
+
 typedef struct timeObject {
 
     uint8_t hour;
