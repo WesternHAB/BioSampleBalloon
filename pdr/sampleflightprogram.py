@@ -4,7 +4,7 @@ IdealSampleRegions = [0, 5, 10, 15, 20, 25, 30] # km
 altitudeRange = 1 # km
 recordingTime = 30 # s
 
-if most recent FlightLog entry includes data from all sensors:
+Loop: if most recent FlightLog entry includes data from all sensors:
 		Turn on Green indicator light (healthy payload)
 	else
 		Turn on Red light (unhealthy payload)
