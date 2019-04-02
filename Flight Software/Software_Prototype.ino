@@ -165,7 +165,6 @@ void writeToSD() {
         Serial.println("error opening datalog.txt");
 
     }
-
 }
 
 /*
@@ -191,9 +190,7 @@ void readGPS() {
                 gpsObject.time.second = gps.time.second();
 
         }  
-
     }
-
 }
 
 
@@ -235,5 +232,4 @@ int altitudeIntervalCheck() {
 			return -1;
 
 	}
-
 }
