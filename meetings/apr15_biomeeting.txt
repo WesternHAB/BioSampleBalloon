@@ -1,0 +1,18 @@
+apr 15
+======
+
+* sequencing
+	qpcr 
+* microscopy
+* culturable vs. non-culturable species?
+* dry ice: praxair, 5$ cash, cheap. There's a praxair in timmins too
+* need to place samples in media
+* how do we keep the samples cool after retreival without killing them? likely keep them at 4 degrees
+	* temperature fluctuation is bad
+* clean 'bunker' like environment for placing media on-site -- talk to CSA
+* should work out these kinks in analytical dry run on control samples
+* email authors about their analysis
+* genomics facility might sponsor us, they did last year for seds
+* funding from CSA? ROBERRTTT
+* write down a procedure for initial dry run test by end of april
+* seek sponsorship from the rotorod supplier
