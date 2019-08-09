@@ -21,11 +21,12 @@
 	#include <SPI.h>
 	#include <SD.h>
 	#include <Adafruit_VC0706.h>
-	#include <HAB_Logging.h>
+	#ifndef HAB_Logging_h
+        #include <HAB_Logging.h>
+    #endif
 
 
 class HAB_Camera {
-		
 		
 	//--------------------------------------------------------------------------\
 	//								   Variables					   			|
@@ -73,6 +74,7 @@ class HAB_Camera {
 		//Getters-------------------------------------------------------------------------|
 			char* getInfo(char* stringPtr);	
 			bool getReadyStatus();
+			bool getBufferStatus();
 		
 		
 		//--------------------------------------------------------------------------------\

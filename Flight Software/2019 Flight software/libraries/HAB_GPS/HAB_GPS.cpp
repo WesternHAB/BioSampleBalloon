@@ -116,6 +116,19 @@
 					&& gpsData.satellites.isValid()
 				);
 			}
+			
+		/*-------------------------------------------------------------------------------------*\
+		| 	Name: 		isAscending																|
+		|	Purpose: 	Checks to see if the GPS is ascending.									|
+		|	Arguments:	void																	|
+		|	Returns:	bool																	|
+		\*-------------------------------------------------------------------------------------*/
+			bool HAB_GPS::isAscending(){	
+				
+				//Need to record last several altitude and check if e.g. slope is positive?
+				
+				return true;
+			}
 
             
 	//--------------------------------------------------------------------------------\
@@ -132,10 +145,22 @@
 		|	Arguments:	void																	|
 		|	Returns:	void																	|
 		\*-------------------------------------------------------------------------------------*/
-			void HAB_GPS::feedReceiver(){	
+			void HAB_GPS::feedReceiver(){				
 				while(gpsSerial.available()){
 					gpsData.encode(gpsSerial.read());
 				}
+				
+				//If Alt does not equal last alt, add it
+				
+				//Add it to the 'trend'
+				//Trend can only hold e.g. 5 readings defined by a #define 5
+				
+				
+				
+				
+				
+				
+				
 			}
 				
 		/*-------------------------------------------------------------------------------------*\

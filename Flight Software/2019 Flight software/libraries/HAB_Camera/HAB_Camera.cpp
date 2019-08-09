@@ -18,11 +18,11 @@
 //--------------------------------------------------------------------------/
 
 
-	HAB_Camera::HAB_Camera(uint8_t chipSelect, uint8_t rxPin, uint8_t txPin){
+	HAB_Camera::HAB_Camera(uint8_t chipSelect, uint8_t cam_rxPin, uint8_t cam_txPin){
 		this->chipSelect = chipSelect;
 		
 		//Sets up the camera connection
-		cam = Adafruit_VC0706(new SoftwareSerial(rxPin, txPin));
+		cam = Adafruit_VC0706(new SoftwareSerial(cam_txPin, cam_rxPin)); //cam_tx to our rx, cam_rx to our tx
 		
 		//Check for the camera
 		cameraFound = cam.begin();
@@ -31,11 +31,10 @@
 		}
 		
 		//Check for the SD card
-		sdFound = SD.begin(chipSelect);
+		sdFound = (HAB_Logging::getStatus() || SD.begin(chipSelect));
 		if(!sdFound) {
 			HAB_Logging::printLogln("Failed to find SD card.");
 		}
-		
 		
 		//Gets a reference to the logging stringPtr
 		stringPtr = HAB_Logging::getStringPtr();
@@ -87,6 +86,16 @@
 			bool HAB_Camera::getReadyStatus(){
 				return (cameraFound && sdFound);
 			}
+			
+		/*-------------------------------------------------------------------------------------*\
+		| 	Name: 		bufferHasData															|
+		|	Purpose: 	Returns true if there is data in the camera buffer.						|
+		|	Arguments:	void																	|
+		|	Returns:	boolean																	|
+		\*-------------------------------------------------------------------------------------*/
+			bool HAB_Camera::getBufferStatus(){
+				return(strcmp(fileName, "") != 0 && bytesLeft > 0);
+			}
 
             
 	//--------------------------------------------------------------------------------\
@@ -130,13 +139,19 @@
 					strcpy(this->fileName, fileName);
 						
 					//Gets the frame length
-					bytesLeft = cam.frameLength();					
-					HAB_Logging::printLogln("Image captured successfully!");
-					HAB_Logging::printLog(itoa(bytesLeft, stringPtr, 10));
-					HAB_Logging::printLogln(" bytes.", "");					
+					bytesLeft = cam.frameLength();		
+
+					//Outputs a message
+					HAB_Logging::printLog("Captured image '");
+					HAB_Logging::printLog(fileName, "");
+					HAB_Logging::printLog("' successfully! (", "");
+					HAB_Logging::printLog(itoa(bytesLeft, stringPtr, 10), "");			
+					HAB_Logging::printLogln(" bytes)", "");					
 				}
 				else{
-					HAB_Logging::printLogln("Failed to capture image.");
+					HAB_Logging::printLog("Failed to capture image '");	
+					HAB_Logging::printLog(fileName, "");
+					HAB_Logging::printLogln("'.", "");
 				}	
 			}
 

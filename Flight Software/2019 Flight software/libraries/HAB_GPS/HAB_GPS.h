@@ -74,6 +74,7 @@ class HAB_GPS {
 			char* getTime(char* stringPtr);
 			bool getLockStatus();		
 			TinyGPSPlus* getReadings();
+			bool isAscending();
 		
 		
 		//--------------------------------------------------------------------------------\

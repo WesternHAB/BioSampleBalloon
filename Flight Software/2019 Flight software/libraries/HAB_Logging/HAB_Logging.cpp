@@ -18,16 +18,36 @@
 //--------------------------------------------------------------------------/
 
 
-   uint8_t chipSelect;
+   uint8_t chipSelect = 0;
+   bool status = false;
    char stringPtr[100] = "";
-   char timestampPtr[15];
+   char timestampPtr[15] ="";
 
 	
 //--------------------------------------------------------------------------\
 //								   Functions					   			|
 //--------------------------------------------------------------------------/
 
-
+	/*-------------------------------------------------------------------------------------*\
+	| 	Name: 		getChip																	|
+	|	Purpose: 	Gets the value for chipSelect											|
+	|	Arguments:	void																	|
+	|	Returns:	integer																	|
+	\*-------------------------------------------------------------------------------------*/
+		uint8_t HAB_Logging::getChip(){
+			return chipSelect;
+		}
+		
+	/*-------------------------------------------------------------------------------------*\
+	| 	Name: 		getStatus																|
+	|	Purpose: 	Gets the status of the SD card.											|
+	|	Arguments:	void																	|
+	|	Returns:	boolean																	|
+	\*-------------------------------------------------------------------------------------*/
+		bool HAB_Logging::getStatus(){
+			return status;
+		}
+		
 	/*-------------------------------------------------------------------------------------*\
 	| 	Name: 		setChip																	|
 	|	Purpose: 	Sets the value for chipSelect											|
@@ -38,11 +58,12 @@
 			chipSelect = _chipSelect;
           
             //Start with the new chipSelect
-            if(SD.begin(chipSelect)) {
-                Serial.println("Card found\r\n");
+			status = SD.begin(chipSelect);
+            if(status){
+                Serial.println("Card found.");
             }
             else{
-                Serial.println("Card failed, or not present");
+                Serial.println("Card failed, or not present.");
             }
 		}
 				
@@ -99,7 +120,7 @@
 		
 	/*-------------------------------------------------------------------------------------*\
 	| 	Name: 		getTimestamp															|
-	|	Purpose: 	Returns a pointer to a character array containg the up-time				|
+	|	Purpose: 	Returns a pointer to a character array containing the up-time.			|
 	|	in a [xx:xx:xx] format.																|
 	|	Arguments:	void																	|
 	|	Returns:	char*																	|
@@ -121,6 +142,29 @@
 		}
 		
 	/*-------------------------------------------------------------------------------------*\
+	| 	Name: 		getTimeFormatted														|
+	|	Purpose: 	Returns a pointer to a character array containing the up-time.			|
+	|	in a xx:xx:xx format.																|
+	|	Arguments:	void																	|
+	|	Returns:	char*																	|
+	\*-------------------------------------------------------------------------------------*/
+		char* HAB_Logging::getTimeFormatted(){
+			unsigned long uptime = millis()/1000;
+				
+			uint16_t hours = uptime / 3600;
+				uptime = uptime % 3600;
+			uint8_t minutes = uptime / 60;
+				uptime = uptime % 60;
+			uint8_t seconds = uptime;
+			
+			//Sets to the time pointer
+			sprintf(timestampPtr, "%02d:%02d:%02d", hours, minutes, seconds);
+			
+			//Returns the pointer to the time character array
+			return timestampPtr;
+		}
+		
+	/*-------------------------------------------------------------------------------------*\
 	| 	Name: 		getStringPtr															|
 	|	Purpose: 	Returns the pointer used for strings, for general usage.				|
 	|	Arguments:	void																	|
@@ -129,3 +173,139 @@
 		char* HAB_Logging::getStringPtr(){
 			return stringPtr;
 		}
+		
+	/*-------------------------------------------------------------------------------------*\
+	| 	Name: 		checkReady																|
+	|	Purpose: 	Returns true if files on the SD card can be written to.					|
+	|	Arguments:	void																	|
+	|	Returns:	bool																	|
+	\*-------------------------------------------------------------------------------------*/
+		bool HAB_Logging::checkReady(){	
+			//If the SD card has not been initialized, return false
+			if(chipSelect == 0 || !status){ return false; }
+			
+			//Holds the number of bytes written, and file open status
+			uint8_t bytesWritten;
+			bool filesOpened = true;
+					
+			//Attempts to open and print to log.txt on the SD card
+			File dataFile = SD.open("log.txt", FILE_WRITE);
+			if(!dataFile){ filesOpened = false; }
+			bytesWritten = dataFile.println("Logging check passed.");				
+			dataFile.close();
+			
+			//Attempts to open datalog.txt on the SD card
+			dataFile = SD.open("datalog.txt", FILE_WRITE);
+			if(!dataFile){ filesOpened = false; }				
+			dataFile.close();
+			
+			//If it was able to write, return true
+			return (bytesWritten > 0 && filesOpened );
+		}
+			
+		
+	/*-------------------------------------------------------------------------------------*\
+	| 	Name: 		initExcelFile															|
+	|	Purpose: 	Initializes an Excel file for data logging.								|
+	|	Arguments:	void																	|
+	|	Returns:	void																	|
+	\*-------------------------------------------------------------------------------------*/
+		void HAB_Logging::initExcelFile(uint8_t _podCount) {
+            File dataFile = SD.open("datalog.txt", FILE_WRITE);
+
+            //If the file exists,
+            if(dataFile){
+                //Write the column headers
+                dataFile.print("Time(s),Altitude(m),Speed(m/s),Longitude(deg),Latitude(deg),Temperature(C),Pressure(hPa),Humidity(%)");
+                for(int i = 0; i != _podCount; i++){
+                   //dataFile.print(",");
+                   //dataFile.print(i);
+                   //dataFile.print("_open");
+				   
+				   dataFile.print(",");
+                   dataFile.print(i);
+                   dataFile.print("_position");
+				   
+				   dataFile.print(",");
+                   dataFile.print(i);
+                   dataFile.print("_temperature");
+				   
+				   dataFile.print(",");
+                   dataFile.print(i);
+                   dataFile.print("_overridden");
+				   
+				   dataFile.print(",");
+                   dataFile.print(i);
+                   dataFile.print("_overrideOpen");
+                }
+
+                dataFile.println();
+
+                //Close the file
+                dataFile.close();
+				
+				Serial.println("INITIALIZED EXCEL FILE");
+            }
+            else{      
+                Serial.println("error opening datalog.txt");       
+            }
+        }
+		
+	/*-------------------------------------------------------------------------------------*\
+	| 	Name: 		writeToExcel															|
+	|	Purpose: 	Initializes an Excel file for data logging.								|
+	|	Arguments:	BMEReadings, GPSReadings												|
+	|	Returns:	void																	|
+	\*-------------------------------------------------------------------------------------*/
+		void HAB_Logging::writeToExcel(BMEReadings bmeReadings, GPSReadings gpsReadings, actuatorReadings* actReadingsArray, int arrLength) {
+        
+            File dataFile = SD.open("datalog.txt", FILE_WRITE);
+        
+            if(dataFile) {               
+                //Time (H:M:S), Altitude, Speed, Longitude, Latitude, Temperature, Pressure, Humidity
+                dataFile.print(gpsReadings.hour);      		dataFile.print(":"); 
+                dataFile.print(gpsReadings.minute);    		dataFile.print(":"); 
+                dataFile.print(gpsReadings.second);    		dataFile.print(",");
+                dataFile.print(gpsReadings.altitude);       dataFile.print(",");
+                dataFile.print(gpsReadings.speed);          dataFile.print(",");
+                dataFile.print(gpsReadings.longitude);      dataFile.print(",");
+                dataFile.print(gpsReadings.latitude);       dataFile.print(",");
+                dataFile.print(bmeReadings.temperature);    dataFile.print(",");
+                dataFile.print(bmeReadings.pressure);       dataFile.print(",");
+                dataFile.print(bmeReadings.humidity);
+				
+				
+				//isOpen, getPosition, isOverridden, isOverrideOpen
+
+                //Actuator statuses
+                for(int i = 0; i != arrLength; i++){
+                   //dataFile.print(",");
+                   //dataFile.print(!actReadingsArray[i].isClosed());
+				   dataFile.print(",");
+                   dataFile.print(actReadingsArray[i].position);
+				   dataFile.print(",");
+				   dataFile.print(actReadingsArray[i].temperature);
+				   dataFile.print(",");
+                   dataFile.print(actReadingsArray[i].actuatorStatusPtr);
+				   dataFile.print(",");
+                   dataFile.print(actReadingsArray[i].heaterStatusPtr);
+				   dataFile.print(",");
+                   //dataFile.print(actReadingsArray[i].isHeaterOverridden());
+				   //dataFile.print(",");
+                   //dataFile.print(actReadingsArray[i].isHeaterOverrideEnabled());
+					//Grab these and run turnary operaters on them
+				
+				}
+
+                //Print New Line
+                dataFile.println();
+
+                //close the file
+                dataFile.close();    
+
+Serial.println("DID FIRST WRITE");				
+            }
+            else{        
+                Serial.println("error opening datalog.txt");       
+            }
+        }

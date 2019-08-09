@@ -6,8 +6,8 @@
 */
 
 
-#ifndef Morse_h
-#define Morse_h
+#ifndef HAB_Actuator_h
+#define HAB_Actuator_h
 
 
 //--------------------------------------------------------------------------\
@@ -16,9 +16,11 @@
 
 
 	#include "Arduino.h"
-	#include "HAB_Actuator.h"
 	#include <Wire.h>
 	#include <SPI.h>
+	#ifndef HAB_Logging_h
+        #include <HAB_Logging.h>
+    #endif
 
 
 class HAB_Actuator {
@@ -34,30 +36,39 @@ class HAB_Actuator {
 		#ifndef CLOSED
 			#define CLOSED 1020 //1023 most closed, give some leeway here
 		#endif
+		
+		#define SERIESRESISTOR 10000  
+		#define THERMISTORNOMINAL 10000   
+		#define TEMPERATURENOMINAL 25 
+		#define BCOEFFICIENT 3950
 	
 	
 	//--------------------------------------------------------------------------\
 	//								   Variables					   			|
 	//--------------------------------------------------------------------------/
 		
+		//Actuator name
+		char namePtr[10] = "";
 		
 		//Actuator pins
 		uint8_t act_en, act_push, act_pull, act_pos;
 		uint8_t heat_en, thermistor;
 		
-		//Enable pins
-		bool move_enabled, preheat_enabled;
+		//Enables statuses
+		bool moveEnabled, heatEnabled;
 		
 		//Opening and closing altitudes
-		double open_alt, close_alt;
+		double openAlt, closeAlt;
 		
-		//If pod has opened already (used when descending)
+		//If pod has opened already
 		bool hasOpened;
 		
-		//Telnet override
-		bool telnet_override, telnet_open;
+		//If it reached its opening interval (used when closeAlt < openAlt)
+		bool hasEnteredInterval;
 		
-		//Trend object
+		//Actuator and heater override
+		bool actuatorOverride, actuatorOverrideOpen;
+		bool heaterOverride, heaterOverrideEnabled;
 	
 	
 	//--------------------------------------------------------------------------\
@@ -65,8 +76,8 @@ class HAB_Actuator {
 	//--------------------------------------------------------------------------/
 		public:
 	
-		HAB_Actuator(uint8_t act_en, uint8_t act_push, uint8_t act_pull,
-				uint8_t act_pos, uint8_t heat_en, uint8_t thermistor, double open_alt, double close_alt
+		HAB_Actuator(const char* namePtr, uint8_t act_en, uint8_t act_push, uint8_t act_pull,
+				uint8_t act_pos, uint8_t heat_en, uint8_t thermistor, double openAlt, double closeAlt
 		);
 		
 		
@@ -77,28 +88,49 @@ class HAB_Actuator {
 	
 		//--------------------------------------------------------------------------------\
 		//Getters-------------------------------------------------------------------------|
+			char* getName();
 			double getOpenAlt();
-			double getCloseAlt();			
-			bool getMoveEnabled();
-			bool getPreheatEnabled();
+			double getCloseAlt();
+			uint16_t getPosition();			
+			bool isMoveEnabled();
+			bool isHeatEnabled();				
 			bool isClosed();
-			bool isFullyOpen();	
+			bool isFullyOpen();
+			float getTemperature();			
+			bool getHasOpened();
+			bool isInInterval(float altitude);
 		
 		
 		//--------------------------------------------------------------------------------\
 		//Setters-------------------------------------------------------------------------|
-			void setMoveEnabled(boolean move_enabled);
-			void setPreheatEnabled(boolean preheat_enabled);
-			void setHeating(boolean heat_enabled);
+			//void setMoveEnabled(boolean moveEnabled); //Is this needed in the new setup?
+			void setOpenAltitude(double openAlt);
+			void setCloseAltitude(double closeAlt);
+			void setHasOpened(bool hasOpened);
 		
 		
 		//--------------------------------------------------------------------------------\
 		//Miscellaneous-------------------------------------------------------------------|
+			//Actuator
 			void extend();
 			void retract();
 			void halt();
-			void enableHeating();
-			void disableHeating();
+			void overrideActuatorOpen(); //The overrides don't actually modify the outputs, it just modifies the booleans for you to read and make decisions from. Perhaps change this later.
+			void overrideActuatorClose();
+			void overrideActuatorRelease();
+			bool isActuatorOverridden();
+			bool isActuatorOverrideOpen();
+			
+			//Heater
+			void stopHeating();
+			void startHeating();
+			void overrideHeaterEnable();
+			void overrideHeaterDisable();
+			void overrideHeaterRelease();
+			bool isHeaterOverridden();
+			bool isHeaterOverrideEnabled();
+			
+			void deactivateAll();
 };
 
 #endif
