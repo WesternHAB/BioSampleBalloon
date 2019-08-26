@@ -2,7 +2,7 @@
 #define HAB_Structs_h
 
 struct actuatorReadings {
-	uint16_t position; //signed int
+	float position; //signed int
     float temperature;
     char actuatorStatusPtr[10] = "AUTO"; //OVR_CLOSE
     char heaterStatusPtr[13] = "AUTO"; //OVR_DISABLE
@@ -17,10 +17,9 @@ struct bmeReadings {
 typedef struct bmeReadings BMEReadings;
 
 struct gpsReadings {  
-    uint8_t second; //Seconds
-    uint8_t minute; //Seconds
-    uint8_t hour; //Seconds
-	char dateTime[50];
+    float second; //Seconds
+    float minute; //Seconds
+    float hour; //Seconds
     float speed; //Meters per second
     float altitude; //Meters
 	float latitude; //Degrees

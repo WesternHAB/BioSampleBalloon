@@ -1,14 +1,13 @@
 /*
 *	Author	:	Stephen Amey
-*	Date	:	June 17, 2019
-*	Purpose	: 	This library is used to interface with a camera to capture and store images. 
+*	Date	:	June 25, 2019
+*	Purpose	: 	This library is used to interface a GPS receiver.
 *				It is specifically tailored to the Western University HAB project.
 */
 
 
-#ifndef HAB_Camera_h
-#define HAB_Camera_h
-
+#ifndef HAB_GPS_h
+#define HAB_GPS_h
 
 
 //--------------------------------------------------------------------------\
@@ -19,37 +18,36 @@
 	#include "Arduino.h"
 	#include <SoftwareSerial.h>
 	#include <SPI.h>
-	#include <SD.h>
-	#include <Adafruit_VC0706.h>
+	#include <TinyGPS++.h>
 	#include <HAB_Logging.h>
+	
 
+class HAB_GPS {
+	
+	
+	//--------------------------------------------------------------------------\
+	//								  Definitions					   			|
+	//--------------------------------------------------------------------------/
+	
+	
+		#ifndef GPS_MAX_AGE
+			#define GPS_MAX_AGE 10000
+		#endif
+		#ifndef GPS_BAUD
+			#define GPS_BAUD 9600
+		#endif
+	
 
-class HAB_Camera {
-		
-		
 	//--------------------------------------------------------------------------\
 	//								   Variables					   			|
 	//--------------------------------------------------------------------------/
 		private:
+			
+		//Holds gps data
+		TinyGPSPlus gpsData;
 		
-		//SD card
-		uint8_t chipSelect;
-		bool sdFound;
-		
-		//Camera pins
-		uint8_t rxPin, txPin;
-
-		//Camera
-        SoftwareSerial tempConn = SoftwareSerial(0, 0);
-		Adafruit_VC0706 cam = Adafruit_VC0706(&tempConn);
-		bool cameraFound;
-		
-		//Image
-		//char* fileName = "";
-		char fileName[50] = "";
-		uint16_t bytesLeft;
-		uint8_t *buffer;
-		uint8_t bytesToRead;
+		//Reference to the passed serial
+		SoftwareSerial gpsSerial;
 		
 		//Holds a reference to the logging stringPtr
 		char* stringPtr;
@@ -60,8 +58,8 @@ class HAB_Camera {
 	//--------------------------------------------------------------------------/
 		public:
 	
-		HAB_Camera(uint8_t chipSelect, uint8_t rxPin, uint8_t txPin);
-		HAB_Camera(void);
+		HAB_GPS(uint8_t rxPin, uint8_t txPin);
+		HAB_GPS(void);
 		
 
 	//--------------------------------------------------------------------------\
@@ -72,7 +70,11 @@ class HAB_Camera {
 		//--------------------------------------------------------------------------------\
 		//Getters-------------------------------------------------------------------------|
 			char* getInfo(char* stringPtr);	
-			bool getReadyStatus();
+			char* getDate(char* stringPtr);
+			char* getTime(char* stringPtr);
+			bool getLockStatus();		
+			TinyGPSPlus* getReadings();
+			bool isAscending();
 		
 		
 		//--------------------------------------------------------------------------------\
@@ -81,9 +83,8 @@ class HAB_Camera {
 		
 		//--------------------------------------------------------------------------------\
 		//Miscellaneous-------------------------------------------------------------------|
-			void captureImage(const char* fileName, uint8_t size);
-			void writeImage();
-			void emptyImageBuffer();
+			void feedReceiver();
+			void printInfo();
 };
 
 #endif

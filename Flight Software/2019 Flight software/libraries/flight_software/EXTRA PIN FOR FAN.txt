@@ -1,0 +1,1 @@
+Can move the GPS tx to a non-input pin, since we are only transmitting from it

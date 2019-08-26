@@ -47,10 +47,14 @@ class HAB_GPS {
 		TinyGPSPlus gpsData;
 		
 		//Reference to the passed serial
-		SoftwareSerial gpsSerial;
+		//SoftwareSerial gpsSerial;
+		//SoftwareSerial setupSerial;
 		
 		//Holds a reference to the logging stringPtr
 		char* stringPtr;
+		
+		//Set to true if the proper GPS mode is set
+		bool modeSet = false;
      
 	
 	//--------------------------------------------------------------------------\
@@ -58,8 +62,9 @@ class HAB_GPS {
 	//--------------------------------------------------------------------------/
 		public:
 	
-		HAB_GPS(uint8_t rxPin, uint8_t txPin);
-		HAB_GPS(void);
+		//HAB_GPS(uint8_t rxPin, uint8_t txPin);
+		HAB_GPS();
+		//HAB_GPS(void); //Want to remove this one
 		
 
 	//--------------------------------------------------------------------------\
@@ -74,8 +79,8 @@ class HAB_GPS {
 			char* getTime(char* stringPtr);
 			bool getLockStatus();		
 			TinyGPSPlus* getReadings();
-			bool isAscending();
-		
+			bool isAscending(); //This isn't used
+			bool isModeSet();
 		
 		//--------------------------------------------------------------------------------\
 		//Setters-------------------------------------------------------------------------|
@@ -85,6 +90,9 @@ class HAB_GPS {
 		//Miscellaneous-------------------------------------------------------------------|
 			void feedReceiver();
 			void printInfo();
+			void setGPS_DynamicModel6();
+			void sendUBX(uint8_t *MSG, uint8_t len);
+			bool getUBX_ACK(uint8_t *MSG);
 };
 
 #endif

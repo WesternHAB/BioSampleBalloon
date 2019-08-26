@@ -1,0 +1,65 @@
+Array with actuators, and index/pointer reference to currently active one.
+Should be able to switch to another pod even if current one is open, e.g. stuck.
+
+Don't do a 'switch' to an actuator THEN execute commands... thats bad
+
+
+COMMANDS FORMAT:
+	POD_1 FORCE ACTIVE (sets this actuator as the active one)
+	POD_1 ACT_OVERRIDE OPEN (sets to override mode, opens [if override open, and wait till temperature then open])
+	POD_1 ACT_OVERRIDE CLOSE (same as above but closes)
+	POD_1 ACT_OVERRIDE RELEASE (releases back to auto-mode)
+	POD_1 HEAT_OVERRIDE ENABLE (overrides the heater, turns it on)
+	POD_1 HEAT_OVERRIDE DISABLE (turns it off)
+	POD_1 HEAT_OVERRIDE RELEASE (releases back to auto-mode)
+	POD_1 SET_OPEN_ALT ##### (sets the opening altitude)
+	POD_1 SET_CLOSE_ALT ##### (sets close altitude)
+
+CASES:
+	Control lost: releases actuator override; heater override stays on if heater overridden to on, disables if it was overridden to off [want it to heat if it needs to])
+	Actuator control released: releases actuator override; heater stays the same
+	Heater control released: releases heater override; actuator stays the same
+
+Forcing active changes the actuator reference to it, and it becomes 'active' (e.g. starts maintaining its temperature,
+waiting for it to open/close).
+This simply switches it to the active one, does not control actuator or heater behaviour, we just skipped in the schedule.
+
+
+Once control switched, may force it open or closed. Once this is done, this is a true manual override and it will not proceed
+automatically anymore unless control is released/connection lost. Once control released/lost, continues from wherever it was forced to
+in the schedule. This is separate from heater override; heating will still be automatic unless overridden as well.
+
+
+Heater override is a separate override and does not interfere with the auto-schedule. When the auto-scheduler is finished with an actuator,
+the heater override is automatically disabled (since its switching to the next actuator anyways).
+
+
+Opening and closing altitudes of an actuator may be changed (with current model it requires switching to it, which is fine?).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Forcing active changes the actuator reference to it, and it becomes 'active' (e.g. starts maintaining its temperature,
+waiting for it to open/close). (If its forced to while in its interval it will try to open immediately [Make it warm up to req temp
+before attemping to move ever, UNLESS FORCED TO MOVE])
+
+If control released/conn lost, continues automatically and normal checks. e.g. altitude check every time.
+If its still in its interval, it does the rest of its interval automatically.
+If outside its interval, it automatically closes and then continues to the next actuator in the list (does not go back and check for ones the manual override skipped)

@@ -1,0 +1,10 @@
+Only these pins can be used to receive for software serial (else use the hardware serial pins, e.g. 18&19 on Serial1)
+Receive pins: 10, 11, 12, 13, 50, 51, 52, 53, 62(A8), 63, 64, 65, 66, 67, 68, 69(A15)
+Outputs can be anything else?
+
+Used:
+	50, 51, 52, 53 (SD card)
+	10 (GPS)
+	11 (Camera)
+	12 (Fan)
+	13 ()

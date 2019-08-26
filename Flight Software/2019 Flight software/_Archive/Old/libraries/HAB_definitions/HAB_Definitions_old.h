@@ -4,8 +4,8 @@
 	
 	#define GPS_BAUD 9600
 	#define GPS_MAX_AGE 110
-	#define GPS_RX_PIN 5
-	#define GPS_TX_PIN 6
+	#define GPS_RX_PIN 53
+	#define GPS_TX_PIN 52
 
 
 //--------------------------------------------------------------------------------\
@@ -15,13 +15,34 @@
 
 
 //--------------------------------------------------------------------------------\
-//Cameras-------------------------------------------------------------------------|
-
-	#define CAM_CHIPSELECT 4
+//Camera--------------------------------------------------------------------------|
 
 	//Camera 1
 	#define CAM1_RX_PIN A14
-	#define CAM1_TX_PIN 47
+	#define CAM1_TX_PIN A14
+	
+	
+//--------------------------------------------------------------------------------\
+//BME280--------------------------------------------------------------------------|	
+
+	//SPI (Interferes with SD card)
+	//#define BME_SCK 13
+    //#define BME_MISO 12
+    //#define BME_MOSI 11
+    //#define BME_CS 10
+	
+	//I2C (Set up wiring for this, no software config required)
+	//SDI to 20
+	//SCK to 21
+	
+
+//--------------------------------------------------------------------------------\
+//Thermistors---------------------------------------------------------------------|	
+
+	#define SERIESRESISTOR 10000  
+	#define THERMISTORNOMINAL 10000   
+	#define TEMPERATURENOMINAL 25 
+	#define BCOEFFICIENT 3950
 
 
 //--------------------------------------------------------------------------------\

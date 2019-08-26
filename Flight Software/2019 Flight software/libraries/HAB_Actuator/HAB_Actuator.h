@@ -30,11 +30,11 @@ class HAB_Actuator {
 	//--------------------------------------------------------------------------/
 		private:
 		
-		#ifndef OPEN
-			#define OPEN 10 //0 most open
+		#ifndef POD_OPEN
+			#define POD_OPEN 10 //10 //0 most open
 		#endif
-		#ifndef CLOSED
-			#define CLOSED 1020 //1023 most closed, give some leeway here
+		#ifndef POD_CLOSED
+			#define POD_CLOSED 1000 //1020 //1023 most closed, give some leeway here
 		#endif
 		
 		#define SERIESRESISTOR 10000  
@@ -69,6 +69,9 @@ class HAB_Actuator {
 		//Actuator and heater override
 		bool actuatorOverride, actuatorOverrideOpen;
 		bool heaterOverride, heaterOverrideEnabled;
+		
+		//Direction the actuator is moving (true for retracting, false for extending)
+		bool isMovingOpen = false;
 	
 	
 	//--------------------------------------------------------------------------\
@@ -99,6 +102,7 @@ class HAB_Actuator {
 			float getTemperature();			
 			bool getHasOpened();
 			bool isInInterval(float altitude);
+			bool isOpening();
 		
 		
 		//--------------------------------------------------------------------------------\

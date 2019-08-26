@@ -10,7 +10,6 @@
 #define HAB_Camera_h
 
 
-
 //--------------------------------------------------------------------------\
 //								    Imports					   				|
 //--------------------------------------------------------------------------/
@@ -27,11 +26,21 @@
 
 
 class HAB_Camera {
-		
+	
+	//--------------------------------------------------------------------------\
+	//								  Definitions					   			|
+	//--------------------------------------------------------------------------/
+		private:
+	
+		#ifndef WRITES_PER_LOOP
+			#define WRITES_PER_LOOP 3
+		#endif
+	
+	
 	//--------------------------------------------------------------------------\
 	//								   Variables					   			|
 	//--------------------------------------------------------------------------/
-		private:
+		
 		
 		//SD card
 		uint8_t chipSelect;
@@ -46,11 +55,11 @@ class HAB_Camera {
 		bool cameraFound;
 		
 		//Image
-		//char* fileName = "";
 		char fileName[50] = "";
 		uint16_t bytesLeft;
 		uint8_t *buffer;
 		uint8_t bytesToRead;
+		uint16_t imgCount = 0;
 		
 		//Holds a reference to the logging stringPtr
 		char* stringPtr;

@@ -126,8 +126,8 @@
 		|	Returns:	boolean																	|
 		\*-------------------------------------------------------------------------------------*/
 			bool HAB_Actuator::isClosed(){
-				uint16_t reading = analogRead(act_pos);
-				return (reading >= CLOSED);
+				uint16_t reading = analogRead(act_pos);		
+				return (reading >= POD_CLOSED);
 			}
 	
 		/*-------------------------------------------------------------------------------------*\
@@ -138,7 +138,7 @@
 		\*-------------------------------------------------------------------------------------*/
 			bool HAB_Actuator::isFullyOpen(){
 				unsigned int reading = analogRead(act_pos); //Check trend at all?
-				return (reading <= OPEN);
+				return (reading <= POD_OPEN);
 			}
 						
 		/*-------------------------------------------------------------------------------------*\
@@ -203,6 +203,17 @@
 					}			
 				}
 			}
+					
+		/*-------------------------------------------------------------------------------------*\
+		| 	Name: 		isOpening																|
+		|	Purpose: 	Returns true if the last direction of the actuator is retracting 		|
+		|				(pod opening), else false if extending (pod closing).					|
+		|	Arguments:	none																	|
+		|	Returns:	bool																	|
+		\*-------------------------------------------------------------------------------------*/
+			bool HAB_Actuator::isOpening(){
+				return isMovingOpen;
+			}
 			
 	
 	//--------------------------------------------------------------------------------\
@@ -264,12 +275,14 @@
 				digitalWrite(act_en, HIGH);
 				this->moveEnabled = true;
 				
+				isMovingOpen = false;
+				
 				//Moves the actuator
 				digitalWrite(act_push, HIGH);
 				digitalWrite(act_pull, LOW);
 				HAB_Logging::printLog("Started extending actuator of ");
 				HAB_Logging::printLog(this->getName(), "");
-				HAB_Logging::printLogln("(Closing)", "");
+				HAB_Logging::printLogln(" (Closing)", "");
 			}
 			
 		/*-------------------------------------------------------------------------------------*\
@@ -283,13 +296,15 @@
 				digitalWrite(act_en, HIGH);
 				this->moveEnabled = true;
 				
+				isMovingOpen = true;
+				
 				//Moves the actuator
 				digitalWrite(act_push, LOW);
 				digitalWrite(act_pull, HIGH);
 				hasOpened = true; //Set upon retraction so that it does not reopen
 				HAB_Logging::printLog("Started retracting actuator of ");
 				HAB_Logging::printLog(this->getName(), "");
-				HAB_Logging::printLogln("(Opening)", "");
+				HAB_Logging::printLogln(" (Opening)", "");
 			}
 		
 		/*-------------------------------------------------------------------------------------*\
@@ -302,7 +317,6 @@
 				//Disables the actuator
 				digitalWrite(act_en, LOW);
 				this->moveEnabled = false;
-				Serial.println("SET FALSE HERE");
 				
 				//Halts the actuator
 				digitalWrite(act_push, LOW);
@@ -473,13 +487,24 @@
 		\*-------------------------------------------------------------------------------------*/
 			void HAB_Actuator::deactivateAll(){
 				//Disables the actuator
-				HAB_Actuator::halt();
+				digitalWrite(act_en, LOW);
+				this->moveEnabled = false;
+				
+				//Halts the actuator
+				digitalWrite(act_push, LOW);
+				digitalWrite(act_pull, LOW);
 				
 				//Disables the heater
-				HAB_Actuator::stopHeating();
+				digitalWrite(heat_en, LOW);
+				heatEnabled = false;
 				
+				//Disable overrides
 				actuatorOverride = false;
 				actuatorOverrideOpen = false;
 				heaterOverride = false;
-				heaterOverrideEnabled = false;				
+				heaterOverrideEnabled = false;
+				
+				//Log the event
+				HAB_Logging::printLog("Deactivated actuator and heater of ");
+				HAB_Logging::printLogln(this->getName(), "");				
 			}

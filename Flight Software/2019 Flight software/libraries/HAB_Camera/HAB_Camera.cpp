@@ -115,6 +115,10 @@
 				//Ensure there is a camera
 				if(!getReadyStatus()){ HAB_Logging::printLogln("No camera or SD card found."); return; }				
 				if(strcmp(this->fileName, "") != 0){ HAB_Logging::printLogln("Cannot capture image: must write or unbuffer last capture."); return; }
+
+				//Modify the image name here
+				strcpy(stringPtr, itoa(imgCount++, stringPtr, 10));
+				strcat(stringPtr, "_"); strcat(stringPtr, fileName);
 				
 				//Set image size
 				switch(size){
@@ -136,23 +140,23 @@
 				cam.setImageSize(VC0706_320x240);
 				if (cam.takePicture()){
 					//Sets the filename which will be used during the SD write
-					strcpy(this->fileName, fileName);
+					strcpy(this->fileName, stringPtr);
 						
 					//Gets the frame length
 					bytesLeft = cam.frameLength();		
 
 					//Outputs a message
 					HAB_Logging::printLog("Captured image '");
-					HAB_Logging::printLog(fileName, "");
+					HAB_Logging::printLog(stringPtr, "");
 					HAB_Logging::printLog("' successfully! (", "");
 					HAB_Logging::printLog(itoa(bytesLeft, stringPtr, 10), "");			
-					HAB_Logging::printLogln(" bytes)", "");					
+					HAB_Logging::printLogln(" bytes)", "");						
 				}
 				else{
 					HAB_Logging::printLog("Failed to capture image '");	
-					HAB_Logging::printLog(fileName, "");
+					HAB_Logging::printLog(stringPtr, "");
 					HAB_Logging::printLogln("'.", "");
-				}	
+				}
 			}
 
 		/*-------------------------------------------------------------------------------------*\
@@ -168,24 +172,30 @@
 					//Open the file
 					File imgFile = SD.open(fileName, FILE_WRITE);
 					
-					//Reads in the next 32 or remaining bytes
-					bytesToRead = min(32, bytesLeft);
-					buffer = cam.readPicture(bytesToRead); //Is causing Serial writes?
-					bytesLeft -= bytesToRead;
-					
-					//Write the buffer to the image
-					imgFile.write(buffer, bytesToRead);
-
-					//If no bytes left, unset the fileName
-					if(bytesLeft <= 0){	
-						HAB_Logging::printLog("Finished writing image '");
-						HAB_Logging::printLog(fileName, "");
-						HAB_Logging::printLogln("' to SD!", "");
-						strcpy(fileName, "");
+					//If the file opened
+					if(imgFile){
+						for(int i = 0; i != WRITES_PER_LOOP; i++){							
+							//Reads in the next 32 or remaining bytes
+							bytesToRead = min(32, bytesLeft);
+							buffer = cam.readPicture(bytesToRead);
+							bytesLeft -= bytesToRead;
+							
+							//Write the buffer to the image
+							imgFile.write(buffer, bytesToRead);
+							
+							//If no bytes left, unset the fileName
+							if(bytesLeft <= 0){
+								HAB_Logging::printLog("Finished writing image '");
+								HAB_Logging::printLog(fileName, "");
+								HAB_Logging::printLogln("' to SD!", "");
+								strcpy(fileName, "");
+								break;
+							}							
+						}
 					}
 					
 					//Close the file
-					imgFile.close();	
+					imgFile.close();
 				}
 			}
 
@@ -204,7 +214,6 @@
 				if(cam.reset()){
 					strcpy(fileName, "");
 					bytesLeft = 0;
-					//delay(250);
 					HAB_Logging::printLogln("Successfully emptied the camera buffer.");
 				}
 				else{

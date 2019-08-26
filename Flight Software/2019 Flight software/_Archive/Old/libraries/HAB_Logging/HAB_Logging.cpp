@@ -191,7 +191,7 @@
 			//Attempts to open and print to log.txt on the SD card
 			File dataFile = SD.open("log.txt", FILE_WRITE);
 			if(!dataFile){ filesOpened = false; }
-			bytesWritten = dataFile.println("Logging check!");				
+			bytesWritten = dataFile.println("Logging check passed.");				
 			dataFile.close();
 			
 			//Attempts to open datalog.txt on the SD card
@@ -232,22 +232,22 @@
 				   
 				   dataFile.print(",");
                    dataFile.print(i);
-                   dataFile.print("_act_status");
+                   dataFile.print("_overridden");
 				   
 				   dataFile.print(",");
                    dataFile.print(i);
-                   dataFile.print("_heat_status");
+                   dataFile.print("_overrideOpen");
                 }
 
                 dataFile.println();
 
                 //Close the file
                 dataFile.close();
+				
+				Serial.println("INITIALIZED EXCEL FILE");
             }
             else{      
-                Serial.println("error opening datalog.txt");
-				//SD.begin(chipSelect);
-				//delay(100);				
+                Serial.println("error opening datalog.txt");       
             }
         }
 		
@@ -263,20 +263,24 @@
         
             if(dataFile) {               
                 //Time (H:M:S), Altitude, Speed, Longitude, Latitude, Temperature, Pressure, Humidity
-                //dataFile.print(gpsReadings.hour);      		dataFile.print(":"); 
-                //dataFile.print(gpsReadings.minute);    		dataFile.print(":"); 
-                //dataFile.print(gpsReadings.second);    		dataFile.print(",");
-                dataFile.print(HAB_Logging::getTimeFormatted());	dataFile.print(",");
-                dataFile.print(gpsReadings.altitude);       		dataFile.print(",");
-                dataFile.print(gpsReadings.speed);          		dataFile.print(",");
-                dataFile.print(gpsReadings.longitude);      		dataFile.print(",");
-                dataFile.print(gpsReadings.latitude);       		dataFile.print(",");
-                dataFile.print(bmeReadings.temperature);    		dataFile.print(",");
-                dataFile.print(bmeReadings.pressure);       		dataFile.print(",");
+                dataFile.print(gpsReadings.hour);      		dataFile.print(":"); 
+                dataFile.print(gpsReadings.minute);    		dataFile.print(":"); 
+                dataFile.print(gpsReadings.second);    		dataFile.print(",");
+                dataFile.print(gpsReadings.altitude);       dataFile.print(",");
+                dataFile.print(gpsReadings.speed);          dataFile.print(",");
+                dataFile.print(gpsReadings.longitude);      dataFile.print(",");
+                dataFile.print(gpsReadings.latitude);       dataFile.print(",");
+                dataFile.print(bmeReadings.temperature);    dataFile.print(",");
+                dataFile.print(bmeReadings.pressure);       dataFile.print(",");
                 dataFile.print(bmeReadings.humidity);
+				
+				
+				//isOpen, getPosition, isOverridden, isOverrideOpen
 
                 //Actuator statuses
                 for(int i = 0; i != arrLength; i++){
+                   //dataFile.print(",");
+                   //dataFile.print(!actReadingsArray[i].isClosed());
 				   dataFile.print(",");
                    dataFile.print(actReadingsArray[i].position);
 				   dataFile.print(",");
@@ -285,17 +289,23 @@
                    dataFile.print(actReadingsArray[i].actuatorStatusPtr);
 				   dataFile.print(",");
                    dataFile.print(actReadingsArray[i].heaterStatusPtr);
+				   dataFile.print(",");
+                   //dataFile.print(actReadingsArray[i].isHeaterOverridden());
+				   //dataFile.print(",");
+                   //dataFile.print(actReadingsArray[i].isHeaterOverrideEnabled());
+					//Grab these and run turnary operaters on them
+				
 				}
 
                 //Print New Line
                 dataFile.println();
 
                 //close the file
-                dataFile.close();    			
+                dataFile.close();    
+
+Serial.println("DID FIRST WRITE");				
             }
             else{        
-                Serial.println("error opening datalog.txt");     
-				//SD.begin(chipSelect);
-				//delay(100);	
+                Serial.println("error opening datalog.txt");       
             }
         }
