@@ -96,6 +96,10 @@
 		\*-------------------------------------------------------------------------------------*/
 			uint16_t HAB_Actuator::getPosition(){
 				uint16_t reading = analogRead(act_pos);
+				
+				//pos += (moveEnabled ? (isMovingOpen ? -255 : 255) : 0);
+				//return pos;
+				
 				return reading;
 			}
 		
@@ -126,7 +130,9 @@
 		|	Returns:	boolean																	|
 		\*-------------------------------------------------------------------------------------*/
 			bool HAB_Actuator::isClosed(){
-				uint16_t reading = analogRead(act_pos);		
+				uint16_t reading = analogRead(act_pos);	
+
+				//return (pos >= POD_CLOSED);
 				return (reading >= POD_CLOSED);
 			}
 	
@@ -138,6 +144,8 @@
 		\*-------------------------------------------------------------------------------------*/
 			bool HAB_Actuator::isFullyOpen(){
 				unsigned int reading = analogRead(act_pos); //Check trend at all?
+				
+				//return (pos <= POD_OPEN);
 				return (reading <= POD_OPEN);
 			}
 						
@@ -275,7 +283,7 @@
 				digitalWrite(act_en, HIGH);
 				this->moveEnabled = true;
 				
-				isMovingOpen = false;
+				this->isMovingOpen = false;
 				
 				//Moves the actuator
 				digitalWrite(act_push, HIGH);
@@ -296,7 +304,7 @@
 				digitalWrite(act_en, HIGH);
 				this->moveEnabled = true;
 				
-				isMovingOpen = true;
+				this->isMovingOpen = true;
 				
 				//Moves the actuator
 				digitalWrite(act_push, LOW);

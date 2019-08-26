@@ -72,6 +72,12 @@ class HAB_Actuator {
 		
 		//Direction the actuator is moving (true for retracting, false for extending)
 		bool isMovingOpen = false;
+		
+		
+		
+		//TESTING
+		uint16_t pos = 1023;
+		int8_t dir = 0;
 	
 	
 	//--------------------------------------------------------------------------\

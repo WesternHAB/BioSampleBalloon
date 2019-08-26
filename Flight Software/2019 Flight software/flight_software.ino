@@ -34,6 +34,11 @@
    REENABLE BMP
 
    Last change: added noConnection check before sending GS messages and telemetry. Did I miss any spots?
+
+
+
+
+   Restart with an altitude starting at 30km or so and increase from there
 */
  
 
@@ -349,139 +354,146 @@ byte sub[] = {0,0,0,0};
 
             //----------------------------------------------------------\
             //Actuator movement-----------------------------------------|
-            
-                //Handle opening-----------------------------------------------//
-                    //If in interval (or overridden open), not fully open, not opening, has not opened before: start opening
-                    if((actuator->isInInterval(_GPSreadings.altitude) || (actuator->isActuatorOverridden() && actuator->isActuatorOverrideOpen())) && !actuator->isFullyOpen() && (!actuator->isMoveEnabled() || !actuator->isOpening()) && !actuator->getHasOpened()){
-                        //Starts opening the pod
-                        actuator->retract();
-
-                        //Send a message to the ground station
-                        strcpy(msgPtr, "Retracting actuator of ");
-                        strcat(msgPtr, actuator->getName());
-                        sendGSmessage(msgPtr);
-                                                   
-                        //Optional picture
-                    }
-                    //Else if in interval (or overridden open), fully opened, and is moving: halt movement
-                    else if((actuator->isInInterval(_GPSreadings.altitude) || (actuator->isActuatorOverridden() && actuator->isActuatorOverrideOpen())) && actuator->isFullyOpen() && actuator->isMoveEnabled()){
-                        //If this is the first time in here, records the time
-                        if(!isHalting){
-                            isHalting = true;
-                            limitReachedTime = millis();
-                        }
-                        //Once the additional push time has elapsed, halt the actuator and capture an image
-                        else if(isHalting && (millis() - limitReachedTime) >= ADDITIONAL_PUSH_TIME){
-                            isHalting = false;
-                            
-                             //Halts the actuator
-                            actuator->halt();
-
+                //If not overridden close
+                if(!(actuator->isActuatorOverridden() && !actuator->isActuatorOverrideOpen())){
+                    //Handle opening-----------------------------------------------//
+                        //If in interval (or overridden open), not fully open, not opening, has not opened before: start opening
+                        if((actuator->isInInterval(_GPSreadings.altitude) || (actuator->isActuatorOverridden() && actuator->isActuatorOverrideOpen())) && !actuator->isFullyOpen() && (!actuator->isMoveEnabled() || !actuator->isOpening()) && (!actuator->getHasOpened() || actuator->isActuatorOverridden())){
+                            //Starts opening the pod
+                            actuator->retract();
+    
                             //Send a message to the ground station
-                            strcpy(msgPtr, "Halting actuator of ");
+                            strcpy(msgPtr, "Retracting actuator of ");
                             strcat(msgPtr, actuator->getName());
                             sendGSmessage(msgPtr);
-                            
-                            //Creates the name of the image and attempts capture (DOS 8.3 format)
-                            strcpy(imgNamePtr, "");
-                            strcat(imgNamePtr, itoa(activeIndex, genStringPtr, 10)); strcat(imgNamePtr, "_O.jpg");                                             
-                            _cam->captureImage(imgNamePtr, 0);
+                                                       
+                            //Optional picture
                         }
-                    }
-
-                //Handle closing-----------------------------------------------//
-                    //If not in interval (or overridden close), open, not closing: start closing
-
-                    Serial.println("Show : ");
-                    Serial.println(actuator->isActuatorOverridden());       //0
-                    Serial.println(actuator->isActuatorOverrideOpen());     //0
-                    Serial.println(actuator->isClosed());                   //1 
-                    Serial.println(actuator->isMoveEnabled());              //0
-                    Serial.println(actuator->isOpening());                  //0
-                    
-                    
-
-                    
-                    if((!actuator->isInInterval(_GPSreadings.altitude) || (actuator->isActuatorOverridden() && !actuator->isActuatorOverrideOpen())) && !actuator->isClosed() && (!actuator->isMoveEnabled() || actuator->isOpening())){
-                        //Starts closing the pod
-                        actuator->extend();
-
-                        //Send a message to the ground station
-                        strcpy(msgPtr, "Extending actuator of ");
-                        strcat(msgPtr, actuator->getName());
-                        sendGSmessage(msgPtr);
-
-                        //Sets hasOpened if it hasn't already and we're above thepods closing altitude (e.g. program crashed)
-						if(_GPSreadings.altitude > actuator->getCloseAlt()){
-							actuator->setHasOpened(true);
-						}                        
-                                                
-                        //Optional picture
-                    }
-                    //Else if not in interval (or overridden close), and is closed
-                    else if((!actuator->isInInterval(_GPSreadings.altitude) || (actuator->isActuatorOverridden() && !actuator->isActuatorOverrideOpen())) && actuator->isClosed()){
-
-                        //If overridden close or not overridden, and move is enabled: halts (avoids disabling in case of overridden-open), take picture
-                        if((!actuator->isActuatorOverridden() || (actuator->isActuatorOverridden() && !actuator->isActuatorOverrideOpen())) && actuator->isMoveEnabled()){
+                        //Else if in interval (or overridden open), fully opened, and is moving: halt movement
+                        else if((actuator->isInInterval(_GPSreadings.altitude) || (actuator->isActuatorOverridden() && actuator->isActuatorOverrideOpen())) && actuator->isFullyOpen() && actuator->isMoveEnabled()){
                             //If this is the first time in here, records the time
                             if(!isHalting){
                                 isHalting = true;
                                 limitReachedTime = millis();
+                                
+                                //actuator->halt(); //REMOVE ME
+                                //HAB_Logging::printLogln("HALTED");
+                                //sendGSmessage("HALTED");
+                                
                             }
                             //Once the additional push time has elapsed, halt the actuator and capture an image
                             else if(isHalting && (millis() - limitReachedTime) >= ADDITIONAL_PUSH_TIME){
                                 isHalting = false;
                                 
-                                //Halts the actuator
+                                 //Halts the actuator
                                 actuator->halt();
-
+    
                                 //Send a message to the ground station
                                 strcpy(msgPtr, "Halting actuator of ");
                                 strcat(msgPtr, actuator->getName());
+                                HAB_Logging::printLogln(msgPtr);
                                 sendGSmessage(msgPtr);
                                 
                                 //Creates the name of the image and attempts capture (DOS 8.3 format)
                                 strcpy(imgNamePtr, "");
-                                strcat(imgNamePtr, itoa(activeIndex, genStringPtr, 10)); strcat(imgNamePtr, "_C.jpg"); 
+                                strcat(imgNamePtr, itoa(activeIndex, genStringPtr, 10)); strcat(imgNamePtr, "_O.jpg");                                             
                                 _cam->captureImage(imgNamePtr, 0);
-                            }                       
-                        }
-
-                        //If not overridden, and move not enabled (won't reach here until the halting is finished)
-                        if(!actuator->isActuatorOverridden() && !actuator->isMoveEnabled() && !switchForced){
-                            //If beyond the closing altitude, disables and gets next actuator
-                            if((_GPSreadings.altitude > actuator->getCloseAlt())){
-                                actuator->deactivateAll();
-                                activeIndex++;
-
-                                //Send a message to the ground station
-                                if(activeIndex < act_arr_len){
-                                    strcpy(msgPtr, "Setting ");
-                                    strcat(msgPtr, _actArray[activeIndex].getName());
-                                    strcat(msgPtr, " as active");
-                                    sendGSmessage(msgPtr);
-                                }
-                                return;
                             }
-                            /*else if((actuator->getCloseAlt() <= actuator->getOpenAlt()) && (_GPSreadings.altitude < actuator->getCloseAlt()) && actuator->getHasOpened()){
-                                actuator->deactivateAll();
-                                activeIndex++;
-                                return;
-                            }*/
-							else if((_GPSreadings.altitude <= (actuator->getOpenAlt() - 1000)) && actuator->getHasOpened()){
-                                actuator->deactivateAll();
-                                activeIndex++;
+                        }
+                    }
 
-                                //Send a message to the ground station
-                                if(activeIndex < act_arr_len){
-                                    strcpy(msgPtr, "Setting ");
-                                    strcat(msgPtr, _actArray[activeIndex].getName());
-                                    strcat(msgPtr, " as active");
-                                    sendGSmessage(msgPtr);
+                //Handle closing-----------------------------------------------//
+                    //If not overridden open
+                    if(!(actuator->isActuatorOverridden() && actuator->isActuatorOverrideOpen())){
+                        //If not in interval (or overridden close), not overridden open, open, not closing: start closing
+                        if((!actuator->isInInterval(_GPSreadings.altitude) || (actuator->isActuatorOverridden() && !actuator->isActuatorOverrideOpen())) && !actuator->isClosed() && (!actuator->isMoveEnabled() || actuator->isOpening())){
+                            //Starts closing the pod
+                            actuator->extend();
+    
+                            //Send a message to the ground station
+                            strcpy(msgPtr, "Extending actuator of ");
+                            strcat(msgPtr, actuator->getName());
+                            HAB_Logging::printLogln(msgPtr);
+                            sendGSmessage(msgPtr);
+    
+                            //Sets hasOpened if it hasn't already and we're above thepods closing altitude (e.g. program crashed)
+    						if(_GPSreadings.altitude > actuator->getCloseAlt()){
+    							actuator->setHasOpened(true);
+    						}                        
+                                                    
+                            //Optional picture
+                        }
+                        //Else if not in interval (or overridden close), and is closed
+                        else if((!actuator->isInInterval(_GPSreadings.altitude) || (actuator->isActuatorOverridden() && !actuator->isActuatorOverrideOpen())) && actuator->isClosed()){
+    
+                            //If overridden close or not overridden, and move is enabled: halts (avoids disabling in case of overridden-open), take picture
+                            if((!actuator->isActuatorOverridden() || (actuator->isActuatorOverridden() && !actuator->isActuatorOverrideOpen())) && actuator->isMoveEnabled()){
+                                //If this is the first time in here, records the time
+                                if(!isHalting){
+                                    isHalting = true;
+                                    limitReachedTime = millis();
+    
+                                    //actuator->halt(); //REMOVE ME
+                                    //HAB_Logging::printLogln("HALTED");
+                                    //sendGSmessage("HALTED");
+                                    
                                 }
-                                return;
-                            }                               
-                        }     
+                                //Once the additional push time has elapsed, halt the actuator and capture an image
+                                else if(isHalting && (millis() - limitReachedTime) >= ADDITIONAL_PUSH_TIME){
+                                    isHalting = false;
+                                    
+                                    //Halts the actuator
+                                    actuator->halt();
+    
+                                    //Send a message to the ground station
+                                    strcpy(msgPtr, "Halting actuator of ");
+                                    strcat(msgPtr, actuator->getName());
+                                    HAB_Logging::printLogln(msgPtr);
+                                    sendGSmessage(msgPtr);
+                                    
+                                    //Creates the name of the image and attempts capture (DOS 8.3 format)
+                                    strcpy(imgNamePtr, "");
+                                    strcat(imgNamePtr, itoa(activeIndex, genStringPtr, 10)); strcat(imgNamePtr, "_C.jpg"); 
+                                    _cam->captureImage(imgNamePtr, 0);
+                                }                       
+                            }  
+    
+                            //If not overridden, and move not enabled (won't reach here until the halting is finished), and above closing altitude, and switch not force
+                            if(!actuator->isActuatorOverridden() && !actuator->isMoveEnabled() && (_GPSreadings.altitude >= actuator->getCloseAlt()) && !switchForced){
+                                //If beyond the closing altitude, disables and gets next actuator
+                                if((_GPSreadings.altitude > actuator->getCloseAlt())){
+                                    actuator->deactivateAll();
+                                    activeIndex++;
+    
+                                    //Send a message to the ground station
+                                    if(activeIndex < act_arr_len){
+                                        strcpy(msgPtr, "Setting ");
+                                        strcat(msgPtr, _actArray[activeIndex].getName());
+                                        strcat(msgPtr, " as active");
+                                        sendGSmessage(msgPtr);
+                                    }
+                                    return;
+                                }
+                                /*else if((actuator->getCloseAlt() <= actuator->getOpenAlt()) && (_GPSreadings.altitude < actuator->getCloseAlt()) && actuator->getHasOpened()){
+                                    actuator->deactivateAll();
+                                    activeIndex++;
+                                    return;
+                                }*/
+    							else if((_GPSreadings.altitude <= (actuator->getOpenAlt() - 1000)) && actuator->getHasOpened()){
+                                    actuator->deactivateAll();
+                                    activeIndex++;
+    
+                                    //Send a message to the ground station
+                                    if(activeIndex < act_arr_len){
+                                        strcpy(msgPtr, "Setting ");
+                                        strcat(msgPtr, _actArray[activeIndex].getName());
+                                        strcat(msgPtr, " as active");
+                                        sendGSmessage(msgPtr);
+                                    }
+                                    return;
+                                }                               
+                            }     
+                        }
                     }        
 
             //----------------------------------------------------------\
@@ -572,7 +584,8 @@ byte sub[] = {0,0,0,0};
 
                         //Altitude
                         msgPtr = strtok(NULL, FIELD_DELIMITER);
-                        _GPSreadings.altitude = atof(msgPtr);
+                        //_GPSreadings.altitude = atof(msgPtr);
+                        _GPSreadings.altitude = 1256.67; //FAKE
                     }
                 }
                 else if(strcmp(msgPtr, GROUNDSTATION_NAME) == 0 && HAB_GPS_enabled){
@@ -696,12 +709,13 @@ byte sub[] = {0,0,0,0};
                     }
                     else if(!strcmp(firstArg, "SET_CLOSE_ALT")){
                         if(strcmp(secondArg, "") != 0 & strcmp(thirdArg, "") != 0 && getPodIndex(secondArg) != -1 && atof(secondArg) >= 0){
-                            _actArray[getPodIndex(secondArg)].setOpenAltitude(atof(thirdArg)); }
+                            _actArray[getPodIndex(secondArg)].setCloseAltitude(atof(thirdArg)); }
                         else{
                             validCommand = false; }
                     }  
                     else if(!strcmp(firstArg, "OVR_ACT_OPEN"))   { if(activeIndex < act_arr_len) _actArray[activeIndex].overrideActuatorOpen();    }
                     else if(!strcmp(firstArg, "OVR_ACT_CLOSE"))  { if(activeIndex < act_arr_len) _actArray[activeIndex].overrideActuatorClose();   }
+                    else if(!strcmp(firstArg, "OVR_ACT_HALT"))  { if(activeIndex < act_arr_len) _actArray[activeIndex].halt();                     }
                     else if(!strcmp(firstArg, "OVR_ACT_RELEASE")){ if(activeIndex < act_arr_len) _actArray[activeIndex].overrideActuatorRelease(); }
                     
                 //Heaters---------------------------------------------------|
