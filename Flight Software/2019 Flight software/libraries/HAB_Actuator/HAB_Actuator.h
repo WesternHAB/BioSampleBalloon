@@ -34,7 +34,7 @@ class HAB_Actuator {
 			#define POD_OPEN 10 //10 //0 most open
 		#endif
 		#ifndef POD_CLOSED
-			#define POD_CLOSED 1000 //1020 //1023 most closed, give some leeway here
+			#define POD_CLOSED 1020 //1020 //1023 most closed, give some leeway here
 		#endif
 		
 		#define SERIESRESISTOR 10000  
@@ -125,6 +125,7 @@ class HAB_Actuator {
 			void extend();
 			void retract();
 			void halt();
+			void overrideActuatorHalt();
 			void overrideActuatorOpen(); //The overrides don't actually modify the outputs, it just modifies the booleans for you to read and make decisions from. Perhaps change this later.
 			void overrideActuatorClose();
 			void overrideActuatorRelease();

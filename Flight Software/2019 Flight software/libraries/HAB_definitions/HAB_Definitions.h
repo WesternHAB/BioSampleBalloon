@@ -27,24 +27,8 @@
 
 	//Local MAC, IP, port
 	#define MAC {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED}
-	/*#define LOCAL_IP_O1 192
-	#define LOCAL_IP_O2 168
-	#define LOCAL_IP_O3 0
-	#define LOCAL_IP_O4 10	
-	#define LOCAL_PORT 54443
-	
-	//Remote IP, port (groundstation)
-	#define GS_IP_O1 99
-	#define GS_IP_O2 242
-	#define GS_IP_O3 100
-	#define GS_IP_O4 155
-	#define GS_PORT 54442*/
 	
 	//Arduino
-	/*#define LOCAL_IP_O1 192
-	#define LOCAL_IP_O2 168
-	#define LOCAL_IP_O3 2
-	#define LOCAL_IP_O4 240	*/
 	#define LOCAL_IP_O1 172
 	#define LOCAL_IP_O2 20
 	#define LOCAL_IP_O3 4
@@ -52,11 +36,6 @@
 	#define LOCAL_PORT 10027
 	
 	//Groundstation
-	/*#define GS_IP_O1 192
-	#define GS_IP_O2 168
-	#define GS_IP_O3 2
-	#define GS_IP_O4 246
-	#define GS_PORT 54444*/
 	#define GS_IP_O1 172
 	#define GS_IP_O2 20
 	#define GS_IP_O3 4
@@ -67,8 +46,8 @@
 	#define PRISM_IP_O1 172
 	#define PRISM_IP_O2 20
 	#define PRISM_IP_O3 4
-	#define PRISM_IP_O4 200
-	#define PRISM_PORT 4446
+	#define PRISM_IP_O4 123 //200
+	#define PRISM_PORT 10001
 	
 
 //--------------------------------------------------------------------------------\
@@ -133,7 +112,7 @@
 	
 	//#define POD_OPEN 0 //10 //THESE DON'T WORK HERE?? 
 	//#define POD_CLOSED 1 //1015 //Modify them in actuator.h
-	#define ADDITIONAL_PUSH_TIME 3000
+	#define ADDITIONAL_PUSH_TIME 5000
 
 	//Pod 1
 	#define HEAT1_EN 22

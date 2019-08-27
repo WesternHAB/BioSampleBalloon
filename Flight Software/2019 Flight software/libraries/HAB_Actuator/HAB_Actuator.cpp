@@ -331,7 +331,29 @@
 				digitalWrite(act_pull, LOW);
 				HAB_Logging::printLog("Halted actuator of ");
 				HAB_Logging::printLogln(this->getName(), "");
-			}		
+			}	
+
+		/*-------------------------------------------------------------------------------------*\
+		| 	Name: 		overrideActuatorHalt													|
+		|	Purpose: 	Halts movement of the actuator, dsiables any overrides.					|
+		|	Arguments:	void																	|
+		|	Returns:	void																	|
+		\*-------------------------------------------------------------------------------------*/
+			void HAB_Actuator::overrideActuatorHalt(){
+				//Disables the actuator
+				digitalWrite(act_en, LOW);
+				this->moveEnabled = false;
+				
+				//Disables any overrides
+				actuatorOverride = false;
+				actuatorOverrideOpen = false;
+				
+				//Halts the actuator
+				digitalWrite(act_push, LOW);
+				digitalWrite(act_pull, LOW);
+				HAB_Logging::printLog("Halted actuator of ");
+				HAB_Logging::printLogln(this->getName(), "");
+			}				
 			
 		/*-------------------------------------------------------------------------------------*\
 		| 	Name: 		overrideActuatorOpen													|
