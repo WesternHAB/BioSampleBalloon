@@ -35,12 +35,19 @@
 	#define LOCAL_IP_O4 240
 	#define LOCAL_PORT 10027
 	
-	//Groundstation
-	#define GS_IP_O1 172
-	#define GS_IP_O2 20
-	#define GS_IP_O3 4
-	#define GS_IP_O4 123
-	#define GS_PORT 54444
+	//Groundstation 1
+	#define GS1_IP_O1 172
+	#define GS1_IP_O2 20
+	#define GS1_IP_O3 3
+	#define GS1_IP_O4 123
+	#define GS1_PORT 54444
+	
+	//Groundstation 2
+	#define GS2_IP_O1 172
+	#define GS2_IP_O2 20
+	#define GS2_IP_O3 3
+	#define GS2_IP_O4 124
+	#define GS2_PORT 54444
 	
 	//Remote IP, port (PRISM)
 	#define PRISM_IP_O1 172

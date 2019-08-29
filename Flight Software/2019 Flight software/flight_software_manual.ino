@@ -132,14 +132,18 @@
             IPAddress _localIP(LOCAL_IP_O1, LOCAL_IP_O2, LOCAL_IP_O3, LOCAL_IP_O4);
             byte _localMAC[] = MAC; 
     
-            //Groundstation address
-            IPAddress _GSIP(GS_IP_O1, GS_IP_O2, GS_IP_O3, GS_IP_O4);
+            //Groundstation 1 address
+            IPAddress _GSIP1(GS1_IP_O1, GS1_IP_O2, GS1_IP_O3, GS1_IP_O4);
+
+            //Groundstation 2 address
+            IPAddress _GSIP2(GS2_IP_O1, GS2_IP_O2, GS2_IP_O3, GS2_IP_O4);
             
             //PRISM address
             IPAddress _PRISMIP(PRISM_IP_O1, PRISM_IP_O2, PRISM_IP_O3, PRISM_IP_O4);
 
+            byte dns[] = {172,20,4,254};
             byte gate[] = {172,20,4,254};
-            byte sub[] = {0,0,0,0};
+            byte sub[] = {255,255,255,0};
         
 
 //---------------------------------------------------------------------------------------------\
@@ -150,6 +154,8 @@
     void setup() {
         //Serial setup
         Serial.begin(9600);
+
+        Ethernet.init(10);
 
         //----------------------------------------------------------\
         //Setup objects---------------------------------------------|
@@ -441,6 +447,9 @@
                 //Read the packet from the buffer
                 _conn.read(rcvBuffer, UDP_TX_PACKET_MAX_SIZE);
 
+                Serial.print("rcvd : ");
+                Serial.println(rcvBuffer); //remoteIP()
+
                 //Serial.print("Received message : ");
                 //Serial.println(rcvBuffer);
 
@@ -576,10 +585,31 @@
                             validCommand = false; }                           
                     }
                     //else if(!strcmp(firstArg, "RELEASE_ACTIVE")) { switchForced = true; } 
-                    else if(!strcmp(firstArg, "OVR_ACT_OPEN"))   { if(activeIndex < act_arr_len) _actArray[activeIndex].overrideActuatorOpen();    }
-                    else if(!strcmp(firstArg, "OVR_ACT_CLOSE"))  { if(activeIndex < act_arr_len) _actArray[activeIndex].overrideActuatorClose();   }
-                    else if(!strcmp(firstArg, "OVR_ACT_HALT"))   { if(activeIndex < act_arr_len) _actArray[activeIndex].overrideActuatorHalt();    }
                     else if(!strcmp(firstArg, "OVR_ACT_RELEASE")){ if(activeIndex < act_arr_len) _actArray[activeIndex].overrideActuatorRelease(); }
+                    else if(!strcmp(firstArg, "OVR_ACT_HALT"))   { if(activeIndex < act_arr_len) _actArray[activeIndex].overrideActuatorHalt();    }
+                    else if(!strcmp(firstArg, "OVR_ACT_OPEN"))   {
+                        if(activeIndex < act_arr_len){
+                            if(!_actArray[activeIndex].isLocked()){
+                                _actArray[activeIndex].overrideActuatorOpen();
+                            }
+                            else{
+                                validCommand = false;
+                                HAB_Logging::printLogln("Actuator is locked!");
+                                sendGSmessage("Actuator is locked!");
+                            }
+                        }   
+                    }
+                    else if(!strcmp(firstArg, "OVR_ACT_CLOSE"))  {
+                        if(activeIndex < act_arr_len){
+                            _actArray[activeIndex].overrideActuatorClose();
+                            _actArray[activeIndex].setLock(true);
+                            HAB_Logging::printLogln("Locking actuator!");
+                            sendGSmessage("Locking actuator!");
+                        }
+                    }                  
+                    //Locks and unlocks the actuators
+                    else if(!strcmp(firstArg, "ACT_ENABLE_LOCK")) { if(activeIndex < act_arr_len) _actArray[activeIndex].setLock(true); }
+                    else if(!strcmp(firstArg, "ACT_DISABLE_LOCK")){ if(activeIndex < act_arr_len) _actArray[activeIndex].setLock(false); }
                     
                 //Heaters---------------------------------------------------|
                     else if(!strcmp(firstArg, "SET_MIN_TEMP")){
@@ -628,10 +658,24 @@
                 strcpy(genStringPtr, "[EVENT]");
                 strcat(genStringPtr, HAB_Logging::getTimestamp());
                 strcat(genStringPtr, msg);
-                _conn.beginPacket(_GSIP, GS_PORT);
+
+                Serial.println("send 1");
+                _conn.beginPacket(_GSIP1, GS1_PORT);
                 _conn.write(genStringPtr);
                 _conn.endPacket();
-            }
+
+                Serial.print("Sent to : ");
+                Serial.print(_GSIP1);
+                Serial.print(":");
+                Serial.print(GS1_PORT);
+
+                //Serial.println("send 2");
+                //_conn.beginPacket(_GSIP2, GS2_PORT);
+                //_conn.write(genStringPtr);
+                //_conn.endPacket();
+
+                Serial.println("send done");
+            }//
         }
         
     /*-------------------------------------------------------------------------------------*\
@@ -677,16 +721,26 @@
                 //Appends the end of the packet
                 strcat(sendBuffer, "\r\n");
                 //strcat(sendBuffer, 0x0D); strcat(rcvBuffer, 0x0A);
-                
-                //Sends the packet to our groundstation
-                _conn.beginPacket(_GSIP, GS_PORT);
+
+                Serial.println("AAsend 1");
+                //Sends the packet to our first groundstation
+                _conn.beginPacket(_GSIP1, GS1_PORT);
                 _conn.write(sendBuffer);
                 _conn.endPacket();
-    
+
+                Serial.println("AAsend 2");
+                //Sends the packet to our second groundstation
+                //_conn.beginPacket(_GSIP2, GS2_PORT);
+                //_conn.write(sendBuffer);
+                //_conn.endPacket();
+
+                Serial.println("AAsend P");
                 //Sends the packet to PRISM
-                _conn.beginPacket(_PRISMIP, PRISM_PORT);
-                _conn.write(sendBuffer);
-                _conn.endPacket();
+                //_conn.beginPacket(_PRISMIP, PRISM_PORT);
+                //_conn.write(sendBuffer);
+                //_conn.endPacket();
+
+                Serial.println("AAsend done");
             }       
         }
 
@@ -745,9 +799,16 @@
             //----------------------------------------------------------\
             //Telemetry check-------------------------------------------|
                 //Sets up the ethernet
-                Ethernet.begin(_localMAC, _localIP, gate, sub);
+                Ethernet.begin(_localMAC, _localIP, dns, gate, sub);
                 Ethernet.setRetransmissionCount(0);
+
+                Serial.print("Our IP : ");
+                Serial.println(Ethernet.localIP());
+                Serial.println(Ethernet.gatewayIP());
+                delay(3000);
+                
                 while(!_conn.begin(LOCAL_PORT));
+                //_conn.flush(); //?
                 HAB_Logging::printLogln("UDP OKAY");
 
                 //Obtain a connection to the ground station               
@@ -840,12 +901,12 @@
                     sendGSmessage("GPS LOCK FAILED");
                 }     
 
-           delay(1000);
+           /*delay(3000);
            digitalWrite(TELEMETRY_LED, LOW);
            digitalWrite(POD_LED, LOW);
            digitalWrite(LOGGING_LED, LOW);
            digitalWrite(CAMERA_LED, LOW);
            digitalWrite(BME_LED, LOW);
            digitalWrite(BME_LED, LOW);
-           digitalWrite(GPS_LED, LOW);
+           digitalWrite(GPS_LED, LOW);*/
         }
