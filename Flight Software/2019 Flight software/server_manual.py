@@ -6,19 +6,6 @@
 #--------------------------------------------------------------------------------------------------------------------------------------------
 
 
-'''
-
-So what exactly does the GUI need to do?
-
-Upon recieving telemetry:
-	Update displayed values, e.g. altitude, flight time, pod positions... Basically all the stuff recieved in the telementry.
-	
-Also need a text-bar object that we can enter a string in, and a send button
-	I imagine that since the clients a global variable, it MIGHT be able to see it? Else use that queue thing
-
-'''
-
-
 #-----------------------------------------------------------------------------------------------------------\
 #                                                    Imports                                                |
 #-----------------------------------------------------------------------------------------------------------/
@@ -65,6 +52,9 @@ act3OpenAlt = 22000
 act3CloseAlt = 30000
 act4OpenAlt = 32000
 act4CloseAlt = 99999
+
+actOpenLim = 10
+actCloseLim = 1020
 
 
 #-----------------------------------------------------------------------------------------------------------\
@@ -146,17 +136,17 @@ def threadmain():
     BMELabel = tk.Label(text="BME280")
     BMELabel.place(x=510, y=30)
 	
-    temperatureLabel = tk.Label(text="Temperature")
+    temperatureLabel = tk.Label(text="Temp       (*C)")
     temperatureLabel.place(x=420, y=60)	
     temperatureBox = tk.Label(height=1, width=10, bg="white", name='temperatureBox')
     temperatureBox.place(x=500, y=60)
 
-    pressureLabel = tk.Label(text="Pressure")
+    pressureLabel = tk.Label(text="Pressure   (Pa)")
     pressureLabel.place(x=420, y=90)	
     pressureBox = tk.Label(height=1, width=10, bg="white", name='pressureBox')
     pressureBox.place(x=500, y=90)
 	
-    humidityLabel = tk.Label(text="Humidity")
+    humidityLabel = tk.Label(text="Humidity (%)")
     humidityLabel.place(x=420, y=120)	
     humidityBox = tk.Label(height=1, width=10, bg="white", name='humidityBox')
     humidityBox.place(x=500, y=120)
@@ -313,7 +303,7 @@ def threadmain():
     haltButton.place(x=420, y=200)
 	
     #Commands list
-    commandsLabel = tk.Label(height=4, width=10, text="hhhh\nhhhh\nhhhh\nhhhh")
+    commandsLabel = tk.Label(height=13, width=30, justify="left", text="SET_ACTIVE <pod name>\nOVR_ACT_OPEN\nOVR_ACT_CLOSE\nOVR_ACT_HALT\nACT_ENABLE_LOCK\nACT_DISABLE_LOCK\nSET_MAX_TEMP <-20 to 30>\nSET_MIN_TEMP <-20 to 30>\nOVR_HEAT_ENABLE\nOVR_HEAT_DISABLE\nOVR_HEAT_RELEASE\nSET_DESCENDING\nHAB_END_FLIGHT")
     commandsLabel.place(x=1050, y=300)
 	
     #Start the GUI loop
@@ -365,51 +355,55 @@ def updateDisplays(message_text):
 		
         #Act1
         t.children["act1PosBox"].configure(text=fields[14])
+        t.children["act1PosBox"].configure(bg=getActuatorColour(fields[14]))	
         t.children["act1TempBox"].configure(text=fields[15])
         t.children["act1AOSBox"].configure(text=(("OVR_CLOSE", "OVR_OPEN","AUTO")[int(fields[16])]))
         t.children["act1HOSBox"].configure(text=(("OVR_DISABLE", "OVR_ENABLE","AUTO")[int(fields[17])]))
         if(t.children["act1OpenBox"].cget('bg') == "yellow" and maxAlt >= act1OpenAlt):
-            t.children["act1OpenBox"].configure(bg="green")
-            #winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
+            t.children["act1OpenBox"].configure(bg="SpringGreen2")
+            winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
         if(t.children["act1CloseBox"].cget('bg') == "yellow" and maxAlt >= act1CloseAlt):
-            t.children["act1CloseBox"].configure(bg="green")
-            #winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
+            t.children["act1CloseBox"].configure(bg="SpringGreen2")
+            winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
 		
         #Act2
         t.children["act2PosBox"].configure(text=fields[18])
+        t.children["act2PosBox"].configure(bg=getActuatorColour(fields[18]))
         t.children["act2TempBox"].configure(text=fields[19])
         t.children["act2AOSBox"].configure(text=(("OVR_CLOSE", "OVR_OPEN","AUTO")[int(fields[20])]))
         t.children["act2HOSBox"].configure(text=(("OVR_DISABLE", "OVR_ENABLE","AUTO")[int(fields[21])]))
         if(t.children["act2OpenBox"].cget('bg') == "yellow" and maxAlt >= act2OpenAlt):
-            t.children["act2OpenBox"].configure(bg="green")
-            #winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
+            t.children["act2OpenBox"].configure(bg="SpringGreen2")
+            winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
         if(t.children["act2CloseBox"].cget('bg') == "yellow" and maxAlt >= act2CloseAlt):
-            t.children["act2CloseBox"].configure(bg="green")
-            #winsound.PlaySound('sound.wav', winsound.SND_FILENAME)	
+            t.children["act2CloseBox"].configure(bg="SpringGreen2")
+            winsound.PlaySound('sound.wav', winsound.SND_FILENAME)	
 		
         #Act3
         t.children["act3PosBox"].configure(text=fields[22])
+        t.children["act3PosBox"].configure(bg=getActuatorColour(fields[22]))
         t.children["act3TempBox"].configure(text=fields[23])
         t.children["act3AOSBox"].configure(text=(("OVR_CLOSE", "OVR_OPEN","AUTO")[int(fields[24])]))
         t.children["act3HOSBox"].configure(text=(("OVR_DISABLE", "OVR_ENABLE","AUTO")[int(fields[25])]))
         if(t.children["act3OpenBox"].cget('bg') == "yellow" and maxAlt >= act3OpenAlt):
-            t.children["act3OpenBox"].configure(bg="green")
-            #winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
+            t.children["act3OpenBox"].configure(bg="SpringGreen2")
+            winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
         if(t.children["act3CloseBox"].cget('bg') == "yellow" and maxAlt >= act3CloseAlt):
-            t.children["act3CloseBox"].configure(bg="green")
-            #winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
+            t.children["act3CloseBox"].configure(bg="SpringGreen2")
+            winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
 		
         #Act4
         t.children["act4PosBox"].configure(text=fields[26])
+        t.children["act4PosBox"].configure(bg=getActuatorColour(fields[26]))
         t.children["act4TempBox"].configure(text=fields[27])
         t.children["act4AOSBox"].configure(text=(("OVR_CLOSE", "OVR_OPEN","AUTO")[int(fields[28])]))
         t.children["act4HOSBox"].configure(text=(("OVR_DISABLE", "OVR_ENABLE","AUTO")[int(fields[29].split("\r")[0])]))
         if(t.children["act4OpenBox"].cget('bg') == "yellow" and maxAlt >= act4OpenAlt):
-            t.children["act4OpenBox"].configure(bg="green")
-            #winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
+            t.children["act4OpenBox"].configure(bg="SpringGreen2")
+            winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
         if(t.children["act4CloseBox"].cget('bg') == "yellow" and maxAlt >= act4CloseAlt):
-            t.children["act4CloseBox"].configure(bg="green")
-            #winsound.PlaySound('sound.wav', winsound.SND_FILENAME)				
+            t.children["act4CloseBox"].configure(bg="SpringGreen2")
+            winsound.PlaySound('sound.wav', winsound.SND_FILENAME)				
 		
 		
 def sendCommand():
@@ -426,6 +420,14 @@ def buttonHaltCommand():
 
 def enterKeyPressed(event):
     sendCommand()
+	
+def getActuatorColour(position):
+    if(float(position) >= actCloseLim):
+        return "SpringGreen2"
+    elif(float(position) <= actOpenLim):
+        return "orange"
+    else:
+        return "yellow"
 
 
 #-----------------------------------------------------------------------------------------------------------\
@@ -435,8 +437,13 @@ def enterKeyPressed(event):
 
 if __name__ == '__main__':
     #If the files do not currently exist, create them
-    open("eventLog.txt", "w")
-    open("telemetryLog.txt", "w")
+    eventFile = open("eventLog.txt", "a")
+    eventFile.write("############################################\n#               Server start               #\n############################################\n")
+    eventFile.close()
+
+    telemetryFile = open("telemetryLog.txt", "a")
+    telemetryFile.write("############################################\n#               Server start               #\n############################################\n")
+    telemetryFile.close()
 
     #Hosts the server
     server_address = serverSocket.getsockname()[0]
