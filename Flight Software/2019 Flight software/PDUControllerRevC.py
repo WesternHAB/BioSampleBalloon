@@ -1,4 +1,3 @@
-#!/usr/bin/python3.4
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
@@ -199,7 +198,7 @@ class Setting:
 	nb = 0  # Keep a count of number of settings.
 
 	def __init__(self, key, label, value):
-		
+
 		self.key = key
 		self.label = label
 		self.value = value
@@ -312,7 +311,7 @@ class GUI:
 			setting.settingButton.destroy()
 
 		if editMode:
-			
+
 			#if setting.key == 'device':  # Device setting uses Combobox widget
 			#	deviceList = list(self.devices.keys())
 			#	setting.settingValue = tk.ttk.Combobox(
@@ -352,7 +351,7 @@ class GUI:
 			self.send(msg)
 		self.updateSetting(setting)
 
-	def updateLabel(self, service): 
+	def updateLabel(self, service):
 		newEntry = newLabel.get()
 		newLabel.delete(0, 'end')
 		Service.setLabel(service, newEntry)
@@ -423,7 +422,7 @@ class GUI:
 		service.refreshButton.grid(
 			row=service.nb+1, column=4, padx=5, pady=10)
 
-		#set the state of the button depending on the user service access 
+		#set the state of the button depending on the user service access
 		if serviceStatus[service.nb-1] == "ENABLE":
 			pass
 		elif serviceStatus[service.nb-1] == "DISABLE":
@@ -597,14 +596,14 @@ class userLogin:
 		#print(serviceStatus)#DEBUG
 
 if __name__ == "__main__":
-	
+
 	root = tk.Tk()
 	#master = tk.Toplevel()
-	
+
 	userlogin = userLogin(root)
-	#root.protocol("WM_DELETE_WINDOW", "disable") 
+	#root.protocol("WM_DELETE_WINDOW", "disable")
 	root.wait_window(root)
-	
+
 	root = tk.Tk()
 	guiThread = GUIThread(root)
 	root.after(0, guiThread.run)

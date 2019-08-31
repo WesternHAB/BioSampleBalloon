@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 #--------------------------------------------------------------------------------------------------------------------------------------------
 #    Name          : server.py
 #    Author        : Stephen Amey
@@ -109,7 +110,7 @@ def threadmain():
     _HABGPSLabel = tk.Label(text="HAB GPS")
     _HABGPSLabel.place(x=120, y=30)
 
-    _HABaltitudeLabel = tk.Label(text="Altitude")
+    _HABaltitudeLabel = tk.Label(text="Altitude (m)")
     _HABaltitudeLabel.place(x=20, y=60)
     _HABaltitudeBox = tk.Label(height=1, width=10, bg="white", name='_HABaltitudeBox')
     _HABaltitudeBox.place(x=100, y=60)
@@ -128,7 +129,7 @@ def threadmain():
     _CSAGPSLabel = tk.Label(text="CSA GPS")
     _CSAGPSLabel.place(x=320, y=30)
 
-    _CSAaltitudeLabel = tk.Label(text="Altitude")
+    _CSAaltitudeLabel = tk.Label(text="Altitude (m)")
     _CSAaltitudeLabel.place(x=220, y=60)
     _CSAaltitudeBox = tk.Label(height=1, width=10, bg="white", name='_CSAaltitudeBox')
     _CSAaltitudeBox.place(x=300, y=60)
