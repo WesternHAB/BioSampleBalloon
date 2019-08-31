@@ -73,6 +73,9 @@ class HAB_Actuator {
 		//Direction the actuator is moving (true for retracting, false for extending)
 		bool isMovingOpen = false;
 		
+		//If use of the actuator is loked
+		bool locked = false;
+		
 		
 		
 		//TESTING
@@ -109,6 +112,7 @@ class HAB_Actuator {
 			bool getHasOpened();
 			bool isInInterval(float altitude);
 			bool isOpening();
+			bool isLocked();
 		
 		
 		//--------------------------------------------------------------------------------\
@@ -117,6 +121,7 @@ class HAB_Actuator {
 			void setOpenAltitude(double openAlt);
 			void setCloseAltitude(double closeAlt);
 			void setHasOpened(bool hasOpened);
+			void setLock(bool locked);
 		
 		
 		//--------------------------------------------------------------------------------\

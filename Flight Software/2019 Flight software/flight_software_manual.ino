@@ -446,10 +446,6 @@
             if(pktSize){
                 //Read the packet from the buffer
                 _conn.read(rcvBuffer, UDP_TX_PACKET_MAX_SIZE);
-
-                Serial.print("rcvd : ");
-                Serial.println(rcvBuffer); //remoteIP()
-
                 //Serial.print("Received message : ");
                 //Serial.println(rcvBuffer);
 
@@ -557,6 +553,7 @@
                 //Outputs the recieved command
                 HAB_Logging::printLog("GROUNDSTATION : ");
                 HAB_Logging::printLogln(command, "");
+                sendGSmessage(command);
                 
                 //Gets the first argument
                 char* argPtr = strtok(command, COMMAND_DELIMITER);
@@ -585,7 +582,7 @@
                             validCommand = false; }                           
                     }
                     //else if(!strcmp(firstArg, "RELEASE_ACTIVE")) { switchForced = true; } 
-                    else if(!strcmp(firstArg, "OVR_ACT_RELEASE")){ if(activeIndex < act_arr_len) _actArray[activeIndex].overrideActuatorRelease(); }
+                    //else if(!strcmp(firstArg, "OVR_ACT_RELEASE")){ if(activeIndex < act_arr_len) _actArray[activeIndex].overrideActuatorRelease(); }
                     else if(!strcmp(firstArg, "OVR_ACT_HALT"))   { if(activeIndex < act_arr_len) _actArray[activeIndex].overrideActuatorHalt();    }
                     else if(!strcmp(firstArg, "OVR_ACT_OPEN"))   {
                         if(activeIndex < act_arr_len){
@@ -629,10 +626,10 @@
                     else if(!strcmp(firstArg, "OVR_HEAT_RELEASE")){ if(activeIndex < act_arr_len) _actArray[activeIndex].overrideHeaterRelease(); }
 
                     //Enable or disable use of the HAB and CSA GPS units
-                    else if(!strcmp(firstArg, "HAB_GPS_ENABLE")) { HAB_GPS_enabled = true;  }
-                    else if(!strcmp(firstArg, "HAB_GPS_DISABLE")){ HAB_GPS_enabled = false; }
-                    else if(!strcmp(firstArg, "CSA_GPS_ENABLE")) { CSA_GPS_enabled = true;  }
-                    else if(!strcmp(firstArg, "CSA_GPS_DISABLE")){ CSA_GPS_enabled = false; }
+                    //else if(!strcmp(firstArg, "HAB_GPS_ENABLE")) { HAB_GPS_enabled = true;  }
+                    //else if(!strcmp(firstArg, "HAB_GPS_DISABLE")){ HAB_GPS_enabled = false; }
+                    //else if(!strcmp(firstArg, "CSA_GPS_ENABLE")) { CSA_GPS_enabled = true;  }
+                    //else if(!strcmp(firstArg, "CSA_GPS_DISABLE")){ CSA_GPS_enabled = false; }
 
                     //End flight
                     else if(!strcmp(firstArg, "SET_DESCENDING")){ isDescending = true; }
@@ -658,24 +655,14 @@
                 strcpy(genStringPtr, "[EVENT]");
                 strcat(genStringPtr, HAB_Logging::getTimestamp());
                 strcat(genStringPtr, msg);
-
-                Serial.println("send 1");
                 _conn.beginPacket(_GSIP1, GS1_PORT);
                 _conn.write(genStringPtr);
                 _conn.endPacket();
 
-                Serial.print("Sent to : ");
-                Serial.print(_GSIP1);
-                Serial.print(":");
-                Serial.print(GS1_PORT);
-
-                //Serial.println("send 2");
-                //_conn.beginPacket(_GSIP2, GS2_PORT);
-                //_conn.write(genStringPtr);
-                //_conn.endPacket();
-
-                Serial.println("send done");
-            }//
+                _conn.beginPacket(_GSIP2, GS2_PORT);
+                _conn.write(genStringPtr);
+                _conn.endPacket();
+            }
         }
         
     /*-------------------------------------------------------------------------------------*\
@@ -722,25 +709,20 @@
                 strcat(sendBuffer, "\r\n");
                 //strcat(sendBuffer, 0x0D); strcat(rcvBuffer, 0x0A);
 
-                Serial.println("AAsend 1");
                 //Sends the packet to our first groundstation
                 _conn.beginPacket(_GSIP1, GS1_PORT);
                 _conn.write(sendBuffer);
                 _conn.endPacket();
 
-                Serial.println("AAsend 2");
                 //Sends the packet to our second groundstation
-                //_conn.beginPacket(_GSIP2, GS2_PORT);
-                //_conn.write(sendBuffer);
-                //_conn.endPacket();
-
-                Serial.println("AAsend P");
+                _conn.beginPacket(_GSIP2, GS2_PORT);
+                _conn.write(sendBuffer);
+                _conn.endPacket();
+                
                 //Sends the packet to PRISM
                 //_conn.beginPacket(_PRISMIP, PRISM_PORT);
                 //_conn.write(sendBuffer);
                 //_conn.endPacket();
-
-                Serial.println("AAsend done");
             }       
         }
 
@@ -801,11 +783,6 @@
                 //Sets up the ethernet
                 Ethernet.begin(_localMAC, _localIP, dns, gate, sub);
                 Ethernet.setRetransmissionCount(0);
-
-                Serial.print("Our IP : ");
-                Serial.println(Ethernet.localIP());
-                Serial.println(Ethernet.gatewayIP());
-                delay(3000);
                 
                 while(!_conn.begin(LOCAL_PORT));
                 //_conn.flush(); //?
@@ -821,7 +798,7 @@
                 sendGSmessage("CONNECTION OKAY");
 
                 //Sets status LED
-                digitalWrite(TELEMETRY_LED, HIGH);
+                //digitalWrite(TELEMETRY_LED, HIGH);
 
             //----------------------------------------------------------\
             //Pod check-------------------------------------------------|
@@ -838,7 +815,7 @@
                 sendGSmessage("PODS OKAY");
                 
                 //Sets status LED
-                digitalWrite(POD_LED, HIGH);
+                //digitalWrite(POD_LED, HIGH);
             
             //----------------------------------------------------------\
             //Logging check---------------------------------------------|
@@ -847,7 +824,7 @@
                     sendGSmessage("LOGGING OKAY");
                     
                 //Sets status LED
-                digitalWrite(LOGGING_LED, HIGH);
+                //digitalWrite(LOGGING_LED, HIGH);
     
             //----------------------------------------------------------\
             //Camera check----------------------------------------------|
@@ -856,7 +833,7 @@
                     sendGSmessage("CAMERA OKAY");
 
                     //Sets status LED
-                    digitalWrite(CAMERA_LED, HIGH);
+                   // digitalWrite(CAMERA_LED, HIGH);
                 }
                 else{
                     HAB_Logging::printLogln("CAMERA FAILED");              
@@ -870,7 +847,7 @@
                     sendGSmessage("BME OKAY");
                     
                     //Sets status LED
-                    digitalWrite(BME_LED, HIGH);
+                    //digitalWrite(BME_LED, HIGH);
                 }
                 else{
                     HAB_Logging::printLogln("BME FAILED");              
@@ -894,7 +871,7 @@
                     sendGSmessage("GPS LOCK OKAY");
 
                     //Sets status LED
-                    digitalWrite(GPS_LED, HIGH);
+                    //digitalWrite(GPS_LED, HIGH);
                 }
                 else{
                     HAB_Logging::printLogln("GPS LOCK FAILED");              
