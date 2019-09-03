@@ -1,0 +1,1037 @@
+ ############################################################
+##                                                          ##
+#               Western University HAB Project               #
+#                                                            #
+#                    Flight Software Logs                    #
+##                                                          ##
+ ############################################################
+[00:00:01] Failed to find camera.
+[00:00:01] No camera or SD card found.
+[00:00:02] UDP OKAY
+ ############################################################
+##                                                          ##
+#               Western University HAB Project               #
+#                                                            #
+#                    Flight Software Logs                    #
+##                                                          ##
+ ############################################################
+[00:00:01] Failed to find camera.
+[00:00:01] No camera or SD card found.
+[00:00:02] UDP OKAY
+[00:00:02] Connection obtained!
+[00:00:03] CONNECTION OKAY
+[00:00:03] PODS OKAY
+[00:00:03] LOGGING OKAY
+[00:00:03] CAMERA OKAY
+[00:00:03] BME OKAY
+[00:00:03] GPS MODE FAILED
+[00:00:03] GPS LOCK OKAY
+
+                     *!GPS lock obtained!*
+
+Author:
+---------------
+Stephen Amey
+
+
+Flight date:
+---------------
+61/48/2030 (UTC) 
+
+
+Camera info:
+---------------
+No camera found.
+
+*** GPS data dump ***
+
+	Date(UTC)  : 61/48/2030
+	Time(UTC)  : 117:70:95
+	Location   : 
+		Latitude(deg)  :   0.000000
+		Longitude(deg) :   0.000000
+		Altitude(m)    :   0.000000
+	Velocity   : 
+		Speed(m/s)     :   0.000000
+		Course(deg)    :   0.000000
+	Satellites : 0
+	H-Dim.     : 0
+
+
+##############################################################
+#                       Logging begins                       #
+##############################################################
+
+
+[00:00:52] GROUNDSTATION : SET_ACTIVE POD_2
+[00:00:52] Deactivated actuator and heater of POD_1
+[00:00:52] Command executed!
+[00:01:01] GROUNDSTATION : OVR_HEAT_ENABLE
+[00:01:01] Heater of POD_2 overridden to ENABLED state
+[00:01:01] Command executed!
+[00:01:01] Started heating POD_2
+[00:01:25] GROUNDSTATION : OVR_HEAT_DISABLE
+[00:01:25] Heater of POD_2 overridden to DISABLED state
+[00:01:25] Command executed!
+[00:01:25] Stopped heating POD_2
+ ############################################################
+##                                                          ##
+#               Western University HAB Project               #
+#                                                            #
+#                    Flight Software Logs                    #
+##                                                          ##
+ ############################################################
+[00:00:11] Failed to find camera.
+[00:00:11] No camera or SD card found.
+[00:00:12] UDP OKAY
+[00:00:12] Connection obtained!
+[00:00:12] CONNECTION OKAY
+[00:00:12] PODS OKAY
+[00:00:12] LOGGING OKAY
+[00:00:12] CAMERA OKAY
+[00:00:13] BME OKAY
+[00:00:13] GPS MODE OKAY
+[00:00:13] GPS LOCK OKAY
+
+                     *!GPS lock obtained!*
+
+Author:
+---------------
+Stephen Amey
+
+
+Flight date:
+---------------
+0/0/2000 (UTC) 
+
+
+Camera info:
+---------------
+No camera found.
+
+*** GPS data dump ***
+
+	Date(UTC)  : 0/0/2000
+	Time(UTC)  : 0:0:0
+	Location   : 
+		Latitude(deg)  :   0.000000
+		Longitude(deg) :   0.000000
+		Altitude(m)    :   0.000000
+	Velocity   : 
+		Speed(m/s)     :   0.000000
+		Course(deg)    :   0.000000
+	Satellites : 0
+	H-Dim.     : 0
+
+
+##############################################################
+#                       Logging begins                       #
+##############################################################
+
+
+ ############################################################
+##                                                          ##
+#               Western University HAB Project               #
+#                                                            #
+#                    Flight Software Logs                    #
+##                                                          ##
+ ############################################################
+[00:00:11] Failed to find camera.
+[00:00:11] No camera or SD card found.
+[00:00:12] UDP OKAY
+[00:00:12] Connection obtained!
+[00:00:12] CONNECTION OKAY
+[00:00:12] PODS OKAY
+[00:00:12] LOGGING OKAY
+[00:00:12] CAMERA OKAY
+[00:00:13] BME OKAY
+[00:00:13] GPS MODE OKAY
+[00:00:13] GPS LOCK OKAY
+
+                     *!GPS lock obtained!*
+
+Author:
+---------------
+Stephen Amey
+
+
+Flight date:
+---------------
+0/0/2000 (UTC) 
+
+
+Camera info:
+---------------
+No camera found.
+
+*** GPS data dump ***
+
+	Date(UTC)  : 0/0/2000
+	Time(UTC)  : 0:0:0
+	Location   : 
+		Latitude(deg)  :   0.000000
+		Longitude(deg) :   0.000000
+		Altitude(m)    :   0.000000
+	Velocity   : 
+		Speed(m/s)     :   0.000000
+		Course(deg)    :   0.000000
+	Satellites : 0
+	H-Dim.     : 0
+
+
+##############################################################
+#                       Logging begins                       #
+##############################################################
+
+
+[00:00:39] GROUNDSTATION : OVR_HEAT_ENABLE
+[00:00:39] Heater of POD_1 overridden to ENABLED state
+[00:00:39] Command executed!
+[00:00:39] Started heating POD_1
+[00:00:45] GROUNDSTATION : OVR_HEAT_RELEASE
+[00:00:45] Heater of POD_1 override RELEASED
+[00:00:45] Command executed!
+[00:00:45] Stopped heating POD_1
+[00:00:49] GROUNDSTATION : SET_ACTIVE POD_3
+[00:00:49] Deactivated actuator and heater of POD_1
+[00:00:49] Command executed!
+[00:00:58] GROUNDSTATION : HAB_END_FLIGHT
+ ############################################################
+##                                                          ##
+#               Western University HAB Project               #
+#                                                            #
+#                    Flight Software Logs                    #
+##                                                          ##
+ ############################################################
+[00:00:11] Failed to find camera.
+[00:00:11] No camera or SD card found.
+[00:00:12] UDP OKAY
+[00:00:19] Connection obtained!
+[00:00:19] CONNECTION OKAY
+[00:00:19] PODS OKAY
+[00:00:19] LOGGING OKAY
+[00:00:19] CAMERA OKAY
+[00:00:20] BME OKAY
+[00:00:20] GPS MODE OKAY
+[00:00:20] GPS LOCK OKAY
+
+                     *!GPS lock obtained!*
+
+Author:
+---------------
+Stephen Amey
+
+
+Flight date:
+---------------
+0/0/2000 (UTC) 
+
+
+Camera info:
+---------------
+No camera found.
+
+*** GPS data dump ***
+
+	Date(UTC)  : 0/0/2000
+	Time(UTC)  : 0:0:0
+	Location   : 
+		Latitude(deg)  :   0.000000
+		Longitude(deg) :   0.000000
+		Altitude(m)    :   0.000000
+	Velocity   : 
+		Speed(m/s)     :   0.000000
+		Course(deg)    :   0.000000
+	Satellites : 0
+	H-Dim.     : 0
+
+
+##############################################################
+#                       Logging begins                       #
+##############################################################
+
+
+[00:00:38] Connection lost!
+[00:00:48] Connection obtained!
+[00:01:54] Connection lost!
+[00:01:57] Connection obtained!
+[00:02:07] Connection lost!
+[00:02:08] Connection obtained!
+[00:02:37] GROUNDSTATION : SET_ACTIVE POD_1
+[00:02:37] Deactivated actuator and heater of POD_1
+[00:02:37] Command executed!
+[00:02:59] GROUNDSTATION : SET_ACTIVE POD_3
+[00:02:59] Deactivated actuator and heater of POD_1
+[00:02:59] Command executed!
+[00:03:02] GROUNDSTATION : SET_ACTIVE POD_4
+[00:03:02] Deactivated actuator and heater of POD_3
+[00:03:02] Command executed!
+[00:03:08] GROUNDSTATION : SET_ACTIVE POD_1
+[00:03:08] Deactivated actuator and heater of POD_4
+[00:03:08] Command executed!
+[00:03:18] GROUNDSTATION : ACT_ENABLE_LOCK
+[00:03:18] Command executed!
+[00:03:32] GROUNDSTATION : OVR_HEAT_ENABLE
+[00:03:32] Heater of POD_1 overridden to ENABLED state
+[00:03:32] Command executed!
+[00:03:32] Started heating POD_1
+[00:03:49] GROUNDSTATION : OVR_HEAT_RELEASE
+[00:03:49] Heater of POD_1 override RELEASED
+[00:03:49] Command executed!
+[00:03:49] Stopped heating POD_1
+[00:03:58] GROUNDSTATION : SET_ACTIVE POD_3
+[00:03:58] Deactivated actuator and heater of POD_1
+[00:03:58] Command executed!
+[00:04:14] GROUNDSTATION : SET_ACTIVE POD_3
+[00:04:14] Deactivated actuator and heater of POD_3
+[00:04:14] Command executed!
+[00:04:16] GROUNDSTATION : SET_ACTIVE POD_3
+[00:04:16] Deactivated actuator and heater of POD_3
+[00:04:16] Command executed!
+[00:04:16] GROUNDSTATION : SET_ACTIVE POD_3
+[00:04:16] Deactivated actuator and heater of POD_3
+[00:04:17] Command executed!
+[00:04:17] GROUNDSTATION : SET_ACTIVE POD_3
+[00:04:17] Deactivated actuator and heater of POD_3
+[00:04:17] Command executed!
+[00:04:17] GROUNDSTATION : SET_ACTIVE POD_3
+[00:04:17] Deactivated actuator and heater of POD_3
+[00:04:17] Command executed!
+[00:04:30] GROUNDSTATION : HAB_END_FLIGHT
+ ############################################################
+##                                                          ##
+#               Western University HAB Project               #
+#                                                            #
+#                    Flight Software Logs                    #
+##                                                          ##
+ ############################################################
+[00:00:11] Failed to find camera.
+[00:00:11] No camera or SD card found.
+[00:00:12] UDP OKAY
+[00:00:12] Connection obtained!
+[00:00:13] CONNECTION OKAY
+[00:00:13] PODS OKAY
+[00:00:13] LOGGING OKAY
+[00:00:13] CAMERA OKAY
+[00:00:13] BME OKAY
+[00:00:13] GPS MODE OKAY
+[00:00:13] GPS LOCK OKAY
+
+                     *!GPS lock obtained!*
+
+Author:
+---------------
+Stephen Amey
+
+
+Flight date:
+---------------
+0/0/2000 (UTC) 
+
+
+Camera info:
+---------------
+No camera found.
+
+*** GPS data dump ***
+
+	Date(UTC)  : 0/0/2000
+	Time(UTC)  : 0:0:0
+	Location   : 
+		Latitude(deg)  :   0.000000
+		Longitude(deg) :   0.000000
+		Altitude(m)    :   0.000000
+	Velocity   : 
+		Speed(m/s)     :   0.000000
+		Course(deg)    :   0.000000
+	Satellites : 0
+	H-Dim.     : 0
+
+
+##############################################################
+#                       Logging begins                       #
+##############################################################
+
+
+[00:00:24] GROUNDSTATION : SET_ACTIVE POD_1
+[00:00:24] Deactivated actuator and heater of POD_1
+[00:00:24] Command executed!
+[00:00:39] Connection lost!
+[00:01:12] Connection obtained!
+ ############################################################
+##                                                          ##
+#               Western University HAB Project               #
+#                                                            #
+#                    Flight Software Logs                    #
+##                                                          ##
+ ############################################################
+[00:00:11] Failed to find camera.
+[00:00:11] No camera or SD card found.
+[00:00:12] UDP OKAY
+[00:00:13] Connection obtained!
+[00:00:13] CONNECTION OKAY
+[00:00:13] PODS OKAY
+[00:00:13] LOGGING OKAY
+[00:00:13] CAMERA OKAY
+[00:00:14] BME OKAY
+[00:00:14] GPS MODE OKAY
+[00:00:14] GPS LOCK OKAY
+
+                     *!GPS lock obtained!*
+
+Author:
+---------------
+Stephen Amey
+
+
+Flight date:
+---------------
+0/0/2000 (UTC) 
+
+
+Camera info:
+---------------
+No camera found.
+
+*** GPS data dump ***
+
+	Date(UTC)  : 0/0/2000
+	Time(UTC)  : 0:0:0
+	Location   : 
+		Latitude(deg)  :   0.000000
+		Longitude(deg) :   0.000000
+		Altitude(m)    :   0.000000
+	Velocity   : 
+		Speed(m/s)     :   0.000000
+		Course(deg)    :   0.000000
+	Satellites : 0
+	H-Dim.     : 0
+
+
+##############################################################
+#                       Logging begins                       #
+##############################################################
+
+
+[00:00:35] GROUNDSTATION : SET_ACTIVE POD_1
+[00:00:35] Deactivated actuator and heater of POD_1
+[00:00:35] Command executed!
+[00:03:32] Connection lost!
+[00:03:34] Connection obtained!
+[00:04:30] GROUNDSTATION : SET_ACTIVE POD_1
+[00:04:30] Deactivated actuator and heater of POD_1
+[00:04:30] Command executed!
+[00:34:11] Connection lost!
+[00:34:24] Connection obtained!
+ ############################################################
+##                                                          ##
+#               Western University HAB Project               #
+#                                                            #
+#                    Flight Software Logs                    #
+##                                                          ##
+ ############################################################
+[00:00:11] Failed to find camera.
+[00:00:11] No camera or SD card found.
+[00:00:12] UDP OKAY
+[00:00:12] Connection obtained!
+[00:00:12] CONNECTION OKAY
+[00:00:12] PODS OKAY
+[00:00:12] LOGGING OKAY
+[00:00:12] CAMERA OKAY
+[00:00:13] BME OKAY
+[00:00:13] GPS MODE OKAY
+[00:00:13] GPS LOCK OKAY
+
+                     *!GPS lock obtained!*
+
+Author:
+---------------
+Stephen Amey
+
+
+Flight date:
+---------------
+0/0/2000 (UTC) 
+
+
+Camera info:
+---------------
+No camera found.
+
+*** GPS data dump ***
+
+	Date(UTC)  : 0/0/2000
+	Time(UTC)  : 0:0:0
+	Location   : 
+		Latitude(deg)  :   0.000000
+		Longitude(deg) :   0.000000
+		Altitude(m)    :   0.000000
+	Velocity   : 
+		Speed(m/s)     :   0.000000
+		Course(deg)    :   0.000000
+	Satellites : 0
+	H-Dim.     : 0
+
+
+##############################################################
+#                       Logging begins                       #
+##############################################################
+
+
+[00:02:07] GROUNDSTATION : OVR_HEAT_ENABLE
+[00:02:07] Heater of POD_1 overridden to ENABLED state
+[00:02:07] Command executed!
+[00:02:07] Started heating POD_1
+[00:02:24] GROUNDSTATION : OVR_HEAT_RELEASE
+[00:02:24] Heater of POD_1 override RELEASED
+[00:02:24] Command executed!
+[00:02:24] Stopped heating POD_1
+[00:04:26] GROUNDSTATION : SET_ACTIVE POD_2
+[00:04:26] Deactivated actuator and heater of POD_1
+[00:04:26] Command executed!
+[00:04:32] GROUNDSTATION : OVR_HEAT_ENABLE
+[00:04:32] Heater of POD_2 overridden to ENABLED state
+[00:04:32] Command executed!
+[00:04:32] Started heating POD_2
+[00:04:40] GROUNDSTATION : OVR_HEAT_RELEASE
+[00:04:40] Heater of POD_2 override RELEASED
+[00:04:40] Command executed!
+[00:04:40] Stopped heating POD_2
+[00:04:45] GROUNDSTATION : SET_ACTIVE POD_3
+[00:04:45] Deactivated actuator and heater of POD_2
+[00:04:45] Command executed!
+[00:04:46] GROUNDSTATION : OVR_HEAT_ENABLE
+[00:04:46] Heater of POD_3 overridden to ENABLED state
+[00:04:46] Command executed!
+[00:04:46] Started heating POD_3
+[00:05:00] GROUNDSTATION : OVR_HEAT_RELEASE
+[00:05:00] Heater of POD_3 override RELEASED
+[00:05:00] Command executed!
+[00:05:00] Stopped heating POD_3
+[00:05:04] GROUNDSTATION : SET_ACTIVE POD_4
+[00:05:04] Deactivated actuator and heater of POD_3
+[00:05:04] Command executed!
+[00:05:07] GROUNDSTATION : OVR_HEAT_ENABLE
+[00:05:07] Heater of POD_4 overridden to ENABLED state
+[00:05:07] Command executed!
+[00:05:07] Started heating POD_4
+[00:05:12] GROUNDSTATION : OVR_HEAT_RELEASE
+[00:05:12] Heater of POD_4 override RELEASED
+[00:05:12] Command executed!
+[00:05:12] Stopped heating POD_4
+[00:05:19] GROUNDSTATION : SET_ACTIVE POD_1
+[00:05:19] Deactivated actuator and heater of POD_4
+[00:05:19] Command executed!
+[00:14:46] Connection lost!
+[00:14:51] Connection obtained!
+[00:17:06] Connection lost!
+[00:17:09] Connection obtained!
+[00:17:48] Connection lost!
+[00:17:49] Connection obtained!
+[00:17:59] Connection lost!
+[00:18:06] Connection obtained!
+[00:18:34] Connection lost!
+[00:19:12] Connection obtained!
+[00:19:38] Connection lost!
+[00:19:50] Connection obtained!
+[00:20:02] Connection lost!
+[00:20:04] Connection obtained!
+[00:20:16] Connection lost!
+[00:20:20] Connection obtained!
+[00:21:38] Connection lost!
+[00:21:39] Connection obtained!
+[00:21:49] Connection lost!
+[00:21:59] Connection obtained!
+[00:28:24] Connection lost!
+[00:28:29] Connection obtained!
+[00:28:51] Connection lost!
+[00:28:58] Connection obtained!
+[00:30:10] Connection lost!
+[00:30:23] Connection obtained!
+[00:30:38] Connection lost!
+[00:30:43] Connection obtained!
+[00:31:03] Connection lost!
+[00:31:12] Connection obtained!
+[00:32:04] Connection lost!
+[00:32:04] Connection obtained!
+[00:40:48] Connection lost!
+[00:40:54] Connection obtained!
+[00:41:20] Connection lost!
+[00:41:21] Connection obtained!
+[00:41:39] Connection lost!
+[00:41:47] Connection obtained!
+[00:41:57] Connection lost!
+[00:41:58] Connection obtained!
+[00:42:35] Connection lost!
+[00:42:42] Connection obtained!
+[00:43:05] Connection lost!
+[00:43:18] Connection obtained!
+[00:43:28] Connection lost!
+[00:43:43] Connection obtained!
+[00:44:25] Connection lost!
+[00:44:36] Connection obtained!
+[00:49:13] GROUNDSTATION : SET_ACTIVE POD_1
+[00:49:13] Deactivated actuator and heater of POD_1
+[00:49:13] Command executed!
+[00:49:37] GROUNDSTATION : OVR_ACT_OPEN
+[00:49:37] Actuator of POD_1 overridden to OPEN state
+[00:49:37] Command executed!
+[00:49:37] Started retracting actuator of POD_1 (Opening)
+[00:49:54] Halted actuator of POD_1
+[00:49:54] Halting actuator of POD_1
+[00:49:54] No camera or SD card found.
+[00:55:44] GROUNDSTATION : SET_MAX_TEMP 10
+[00:55:44] Command executed!
+[00:55:51] GROUNDSTATION : SET_MIN_TEMP 0
+[00:55:51] Command executed!
+[01:00:23] Connection lost!
+[01:00:23] Halted actuator of POD_1
+[01:00:23] Actuator of POD_1 override RELEASED
+[01:09:45] Connection obtained!
+[01:09:56] GROUNDSTATION : OVR_ACT_CLOSE
+[01:09:56] Actuator of POD_1 overridden to CLOSED state
+[01:09:56] Locking actuator!
+[01:09:56] Command executed!
+[01:09:56] Started extending actuator of POD_1 (Closing)
+[01:09:56] Extending actuator of POD_1
+[01:10:14] Halted actuator of POD_1
+[01:10:14] Halting actuator of POD_1
+[01:10:14] No camera or SD card found.
+[01:10:21] GROUNDSTATION : SET_ACTIVE POD_2
+[01:10:21] Deactivated actuator and heater of POD_1
+[01:10:21] Command executed!
+[01:15:26] GROUNDSTATION : OVR_ACT_OPEN
+[01:15:26] Actuator of POD_2 overridden to OPEN state
+[01:15:26] Command executed!
+[01:15:26] Started retracting actuator of POD_2 (Opening)
+[01:15:44] Halted actuator of POD_2
+[01:15:44] Halting actuator of POD_2
+[01:15:44] No camera or SD card found.
+[01:25:24] Started heating POD_2
+[01:25:24] Started retracting actuator of POD_2 (Opening)
+[01:25:29] Halted actuator of POD_2
+[01:25:29] Halting actuator of POD_2
+[01:25:29] No camera or SD card found.
+[01:25:29] Started retracting actuator of POD_2 (Opening)
+[01:25:35] Halted actuator of POD_2
+[01:25:35] Halting actuator of POD_2
+[01:25:35] No camera or SD card found.
+[01:25:35] Started retracting actuator of POD_2 (Opening)
+[01:25:36] GROUNDSTATION : OVR_ACT_HALT
+[01:25:36] Halted actuator of POD_2
+[01:25:36] Command executed!
+[01:26:01] GROUNDSTATION : OVR_ACT_OPEN
+[01:26:01] Actuator of POD_2 overridden to OPEN state
+[01:26:01] Command executed!
+[01:26:01] Started retracting actuator of POD_2 (Opening)
+[01:26:01] Halted actuator of POD_2
+[01:26:01] Halting actuator of POD_2
+[01:26:01] No camera or SD card found.
+[01:26:01] Started retracting actuator of POD_2 (Opening)
+[01:26:06] Halted actuator of POD_2
+[01:26:06] Halting actuator of POD_2
+[01:26:06] No camera or SD card found.
+[01:26:06] Started retracting actuator of POD_2 (Opening)
+[01:26:11] Halted actuator of POD_2
+[01:26:11] Halting actuator of POD_2
+[01:26:11] No camera or SD card found.
+[01:26:11] Started retracting actuator of POD_2 (Opening)
+[01:26:17] Halted actuator of POD_2
+[01:26:17] Halting actuator of POD_2
+[01:26:17] No camera or SD card found.
+[01:26:17] Started retracting actuator of POD_2 (Opening)
+[01:26:19] GROUNDSTATION : OVR_ACT_HALT
+[01:26:19] Halted actuator of POD_2
+[01:26:19] Command executed!
+[01:26:29] Stopped heating POD_2
+[01:26:37] GROUNDSTATION : OVR_HEAT_DISABLE
+[01:26:37] Heater of POD_2 overridden to DISABLED state
+[01:26:37] Command executed!
+[01:33:17] GROUNDSTATION : OVR_HEAT_ENABLE
+[01:33:17] Heater of POD_2 overridden to ENABLED state
+[01:33:17] Command executed!
+[01:33:17] Started heating POD_2
+[01:33:51] GROUNDSTATION : OVR_HEAT_DISABLE
+[01:33:51] Heater of POD_2 overridden to DISABLED state
+[01:33:51] Command executed!
+[01:33:51] Stopped heating POD_2
+[01:45:59] GROUNDSTATION : OVR_HEAT_ENABLE
+[01:45:59] Heater of POD_2 overridden to ENABLED state
+[01:45:59] Command executed!
+[01:45:59] Started heating POD_2
+[01:46:44] GROUNDSTATION : OVR_HEAT_DISABLE
+[01:46:44] Heater of POD_2 overridden to DISABLED state
+[01:46:44] Command executed!
+[01:46:44] Stopped heating POD_2
+[01:50:14] GROUNDSTATION : OVR_ACT_CLOSE
+[01:50:14] Actuator of POD_2 overridden to CLOSED state
+[01:50:14] Locking actuator!
+[01:50:14] Command executed!
+[01:50:14] Started extending actuator of POD_2 (Closing)
+[01:50:14] Extending actuator of POD_2
+[01:50:27] Halted actuator of POD_2
+[01:50:27] Halting actuator of POD_2
+[01:50:27] No camera or SD card found.
+[01:50:43] GROUNDSTATION : SET_ACTIVE POD_3
+[01:50:43] Deactivated actuator and heater of POD_2
+[01:50:43] Command executed!
+[01:50:43] Started heating POD_3
+[01:50:57] GROUNDSTATION : OVR_HEAT_ENABLE
+[01:50:57] Heater of POD_3 overridden to ENABLED state
+[01:50:57] Command executed!
+[01:51:28] GROUNDSTATION : OVR_HEAT_ENABLE
+[01:51:28] Heater of POD_3 overridden to ENABLED state
+[01:51:28] Command executed!
+[01:51:47] GROUNDSTATION : SET_ACTIVE POD_4
+[01:51:47] Deactivated actuator and heater of POD_3
+[01:51:47] Command executed!
+[01:51:47] Started heating POD_4
+[01:51:51] GROUNDSTATION : OVR_HEAT_ENABLE
+[01:51:51] Heater of POD_4 overridden to ENABLED state
+[01:51:51] Command executed!
+[01:54:28] GROUNDSTATION : OVR_HEAT_DISABLE
+[01:54:28] Heater of POD_4 overridden to DISABLED state
+[01:54:28] Command executed!
+[01:54:28] Stopped heating POD_4
+[01:54:33] GROUNDSTATION : SET_ACTIVE POD_3
+[01:54:33] Deactivated actuator and heater of POD_4
+[01:54:33] Command executed!
+[01:54:33] Started heating POD_3
+[01:54:37] GROUNDSTATION : OVR_HEAT_ENABLE
+[01:54:37] Heater of POD_3 overridden to ENABLED state
+[01:54:37] Command executed!
+[01:54:46] GROUNDSTATION : OVR_HEAT_ENABLE
+[01:54:46] Heater of POD_3 overridden to ENABLED state
+[01:54:46] Command executed!
+[01:54:56] GROUNDSTATION : OVR_HEAT_DISABLE
+[01:54:56] Heater of POD_3 overridden to DISABLED state
+[01:54:57] Command executed!
+[01:54:57] Stopped heating POD_3
+[01:55:00] GROUNDSTATION : OVR_HEAT_ENABLE
+[01:55:00] Heater of POD_3 overridden to ENABLED state
+[01:55:00] Command executed!
+[01:55:00] Started heating POD_3
+[01:55:08] GROUNDSTATION : SET_ACTIVE POD_2
+[01:55:08] Deactivated actuator and heater of POD_3
+[01:55:08] Command executed!
+[01:55:08] Started heating POD_2
+[01:55:11] GROUNDSTATION : OVR_HEAT_ENABLE
+[01:55:11] Heater of POD_2 overridden to ENABLED state
+[01:55:11] Command executed!
+[01:57:59] GROUNDSTATION : SET_ACTIVE POD_3
+[01:58:00] Deactivated actuator and heater of POD_2
+[01:58:00] Command executed!
+[01:58:00] Started heating POD_3
+[01:58:07] GROUNDSTATION : OVR_HEAT_ENABLE
+[01:58:07] Heater of POD_3 overridden to ENABLED state
+[01:58:07] Command executed!
+[01:58:35] GROUNDSTATION : OVR_ACT_OPEN
+[01:58:35] Actuator of POD_3 overridden to OPEN state
+[01:58:35] Command executed!
+[01:58:35] Started retracting actuator of POD_3 (Opening)
+[01:58:54] Halted actuator of POD_3
+[01:58:54] Halting actuator of POD_3
+[01:58:54] No camera or SD card found.
+[01:58:54] Started retracting actuator of POD_3 (Opening)
+[01:58:59] Halted actuator of POD_3
+[01:58:59] Halting actuator of POD_3
+[01:58:59] No camera or SD card found.
+[01:58:59] Started retracting actuator of POD_3 (Opening)
+[01:59:01] GROUNDSTATION : OVR_ACT_RELEASE
+[01:59:01] Invalid command!
+[01:59:04] GROUNDSTATION : OVR_ACT_HALT
+[01:59:04] Halted actuator of POD_3
+[01:59:04] Command executed!
+[01:59:19] GROUNDSTATION : OVR_HEAT_RELEASE
+[01:59:19] Invalid command!
+[01:59:26] GROUNDSTATION : OVR_HEAT_DISABLE
+[01:59:26] Heater of POD_3 overridden to DISABLED state
+[01:59:26] Command executed!
+[01:59:26] Stopped heating POD_3
+[01:59:48] GROUNDSTATION : SET_ACTIVE POD_4
+[01:59:48] Deactivated actuator and heater of POD_3
+[01:59:48] Command executed!
+[01:59:48] Started heating POD_4
+[01:59:54] GROUNDSTATION : OVR_HEAT_ENABLE
+[01:59:54] Heater of POD_4 overridden to ENABLED state
+[01:59:54] Command executed!
+[02:02:54] GROUNDSTATION : OVR_HEAT_DISABLE
+[02:02:54] Heater of POD_4 overridden to DISABLED state
+[02:02:54] Command executed!
+[02:02:54] Stopped heating POD_4
+[02:02:59] GROUNDSTATION : SET_ACTIVE POD_3
+[02:02:59] Deactivated actuator and heater of POD_4
+[02:02:59] Command executed!
+[02:02:59] Started heating POD_3
+[02:03:07] GROUNDSTATION : OVR_HEAT_DISABLE
+[02:03:07] Heater of POD_3 overridden to DISABLED state
+[02:03:07] Command executed!
+[02:03:07] Stopped heating POD_3
+[02:18:18] GROUNDSTATION : SET_ACTIVE POD_2
+[02:18:18] Deactivated actuator and heater of POD_3
+[02:18:18] Command executed!
+[02:18:18] Started heating POD_2
+[02:18:23] GROUNDSTATION : OVR_HEAT_ENABLE
+[02:18:23] Heater of POD_2 overridden to ENABLED state
+[02:18:23] Command executed!
+[02:21:44] GROUNDSTATION : OVR_HEAT_DISABLE
+[02:21:44] Heater of POD_2 overridden to DISABLED state
+[02:21:44] Command executed!
+[02:21:44] Stopped heating POD_2
+[02:21:52] GROUNDSTATION : SET_ACTIVE POD_4
+[02:21:52] Deactivated actuator and heater of POD_2
+[02:21:52] Command executed!
+[02:21:52] Started heating POD_4
+[02:21:58] GROUNDSTATION : OVR_HEAT_ENABLE
+[02:21:58] Heater of POD_4 overridden to ENABLED state
+[02:21:58] Command executed!
+[02:24:53] GROUNDSTATION : OVR_HEAT_DISABLE
+[02:24:53] Heater of POD_4 overridden to DISABLED state
+[02:24:53] Command executed!
+[02:24:53] Stopped heating POD_4
+[02:34:14] GROUNDSTATION : SET_ACTIVE POD_3
+[02:34:14] Deactivated actuator and heater of POD_4
+[02:34:14] Command executed!
+[02:34:14] Started heating POD_3
+[02:34:19] GROUNDSTATION : OVR_HEAT_DISABLE
+[02:34:19] Heater of POD_3 overridden to DISABLED state
+[02:34:19] Command executed!
+[02:34:19] Stopped heating POD_3
+[02:34:33] GROUNDSTATION : OVR_HEAT_ENABLE
+[02:34:33] Heater of POD_3 overridden to ENABLED state
+[02:34:34] Command executed!
+[02:34:34] Started heating POD_3
+[02:36:40] GROUNDSTATION : OVR_HEAT_DISABLE
+[02:36:40] Heater of POD_3 overridden to DISABLED state
+[02:36:40] Command executed!
+[02:36:40] Stopped heating POD_3
+[02:39:02] GROUNDSTATION : SET_ACTIVE POD_3
+[02:39:02] Deactivated actuator and heater of POD_3
+[02:39:02] Command executed!
+[02:39:35] GROUNDSTATION : OVR_ACT_CLOSE
+[02:39:35] Actuator of POD_3 overridden to CLOSED state
+[02:39:35] Locking actuator!
+[02:39:35] Command executed!
+[02:39:35] Started extending actuator of POD_3 (Closing)
+[02:39:35] Extending actuator of POD_3
+[02:39:49] Halted actuator of POD_3
+[02:39:49] Halting actuator of POD_3
+[02:39:49] No camera or SD card found.
+[02:40:05] GROUNDSTATION : SET_ACTIVE POD_4
+[02:40:05] Deactivated actuator and heater of POD_3
+[02:40:05] Command executed!
+[02:40:11] Started heating POD_4
+[02:41:02] Stopped heating POD_4
+[02:48:34] Started heating POD_4
+[02:49:25] Stopped heating POD_4
+[02:52:25] GROUNDSTATION : SET_ACTIVE POD_4
+[02:52:25] Deactivated actuator and heater of POD_4
+[02:52:25] Command executed!
+[02:54:57] GROUNDSTATION : OVR_ACT_OPEN
+[02:54:57] Actuator of POD_4 overridden to OPEN state
+[02:54:57] Command executed!
+[02:54:57] Started retracting actuator of POD_4 (Opening)
+[02:55:15] Halted actuator of POD_4
+[02:55:15] Halting actuator of POD_4
+[02:55:15] No camera or SD card found.
+[02:55:15] Started retracting actuator of POD_4 (Opening)
+[02:55:20] Halted actuator of POD_4
+[02:55:20] Halting actuator of POD_4
+[02:55:20] No camera or SD card found.
+[02:55:20] Started retracting actuator of POD_4 (Opening)
+[02:55:26] Halted actuator of POD_4
+[02:55:26] Halting actuator of POD_4
+[02:55:26] No camera or SD card found.
+[02:55:26] Started retracting actuator of POD_4 (Opening)
+[02:55:27] GROUNDSTATION : OVR_ACT_HALT
+[02:55:27] Halted actuator of POD_4
+[02:55:27] Command executed!
+[02:55:48] Started heating POD_4
+[02:56:38] Stopped heating POD_4
+[02:57:02] GROUNDSTATION : SET_MIN_TEMP -10
+[02:57:02] Command executed!
+[02:57:07] GROUNDSTATION : SET_MAX_TEMP -5
+[02:57:07] Command executed!
+[03:25:46] Started heating POD_4
+[03:25:54] Connection lost!
+[03:26:09] Stopped heating POD_4
+[03:27:56] Connection obtained!
+[03:32:07] Started heating POD_4
+[03:32:31] Stopped heating POD_4
+[03:37:36] Connection lost!
+[03:38:09] Started heating POD_4
+[03:38:33] Stopped heating POD_4
+[03:39:25] Connection obtained!
+[03:42:29] Connection lost!
+[03:43:54] Connection obtained!
+[03:44:06] Started heating POD_4
+[03:44:30] Stopped heating POD_4
+[03:49:55] Started heating POD_4
+[03:50:19] Stopped heating POD_4
+[03:55:39] Started heating POD_4
+[03:56:03] Stopped heating POD_4
+[04:01:23] Started heating POD_4
+[04:01:47] Stopped heating POD_4
+[04:07:02] Started heating POD_4
+[04:07:26] Stopped heating POD_4
+[04:12:39] Started heating POD_4
+[04:13:03] Stopped heating POD_4
+[04:18:14] Started heating POD_4
+[04:18:38] Stopped heating POD_4
+[04:22:24] Connection lost!
+[04:22:49] Connection obtained!
+[04:23:27] Connection lost!
+[04:23:46] Started heating POD_4
+[04:24:11] Stopped heating POD_4
+[04:26:46] Connection obtained!
+[04:29:15] Started heating POD_4
+[04:29:39] Stopped heating POD_4
+[04:34:42] Started heating POD_4
+[04:35:07] Stopped heating POD_4
+[04:40:07] Started heating POD_4
+[04:40:32] Stopped heating POD_4
+[04:45:30] Started heating POD_4
+[04:45:54] Stopped heating POD_4
+[04:50:51] Started heating POD_4
+[04:51:15] Stopped heating POD_4
+[04:56:10] Started heating POD_4
+[04:56:34] Stopped heating POD_4
+[05:01:28] Started heating POD_4
+[05:01:52] Stopped heating POD_4
+[05:06:44] Started heating POD_4
+[05:07:08] Stopped heating POD_4
+[05:12:00] Started heating POD_4
+[05:12:24] Stopped heating POD_4
+[05:17:14] Started heating POD_4
+[05:17:39] Stopped heating POD_4
+[05:22:26] Started heating POD_4
+[05:22:50] Stopped heating POD_4
+[05:27:38] Started heating POD_4
+[05:28:02] Stopped heating POD_4
+[05:32:47] Started heating POD_4
+[05:33:12] Stopped heating POD_4
+[05:37:55] Started heating POD_4
+[05:38:20] Stopped heating POD_4
+[05:43:00] Started heating POD_4
+[05:43:24] Stopped heating POD_4
+[05:48:08] Started heating POD_4
+[05:48:32] Stopped heating POD_4
+[05:53:14] Started heating POD_4
+[05:53:38] Stopped heating POD_4
+[05:58:21] Started heating POD_4
+[05:58:45] Stopped heating POD_4
+[06:03:26] Started heating POD_4
+[06:03:51] Stopped heating POD_4
+[06:08:31] Started heating POD_4
+[06:08:56] Stopped heating POD_4
+[06:13:33] Started heating POD_4
+[06:13:58] Stopped heating POD_4
+[06:18:37] Started heating POD_4
+[06:19:02] Stopped heating POD_4
+[06:23:40] Started heating POD_4
+[06:24:04] Stopped heating POD_4
+[06:28:41] Started heating POD_4
+[06:29:05] Stopped heating POD_4
+[06:33:42] Started heating POD_4
+[06:34:06] Stopped heating POD_4
+[06:38:41] Started heating POD_4
+[06:39:06] Stopped heating POD_4
+[06:43:43] Started heating POD_4
+[06:44:07] Stopped heating POD_4
+[06:48:42] Started heating POD_4
+[06:49:06] Stopped heating POD_4
+[06:53:41] Started heating POD_4
+[06:54:05] Stopped heating POD_4
+[06:58:41] Started heating POD_4
+[06:59:05] Stopped heating POD_4
+[07:03:39] Started heating POD_4
+[07:04:04] Stopped heating POD_4
+[07:08:38] Started heating POD_4
+[07:09:03] Stopped heating POD_4
+[07:13:34] Started heating POD_4
+[07:13:58] Stopped heating POD_4
+[07:18:32] Started heating POD_4
+[07:18:56] Stopped heating POD_4
+[07:23:30] Started heating POD_4
+[07:23:54] Stopped heating POD_4
+[07:28:26] Started heating POD_4
+[07:28:51] Stopped heating POD_4
+[07:33:23] Started heating POD_4
+[07:33:47] Stopped heating POD_4
+[07:38:19] Started heating POD_4
+[07:38:44] Stopped heating POD_4
+[07:43:15] Started heating POD_4
+[07:43:40] Stopped heating POD_4
+[07:48:09] Started heating POD_4
+[07:48:33] Stopped heating POD_4
+[07:53:05] Started heating POD_4
+[07:53:29] Stopped heating POD_4
+[07:58:01] Started heating POD_4
+[07:58:25] Stopped heating POD_4
+[08:02:57] Started heating POD_4
+[08:03:21] Stopped heating POD_4
+[08:07:52] Started heating POD_4
+[08:08:17] Stopped heating POD_4
+[08:12:48] Started heating POD_4
+[08:13:12] Stopped heating POD_4
+[08:17:44] Started heating POD_4
+[08:18:09] Stopped heating POD_4
+[08:22:40] Started heating POD_4
+[08:23:05] Stopped heating POD_4
+[08:27:37] Started heating POD_4
+[08:28:01] Stopped heating POD_4
+[08:32:33] Started heating POD_4
+[08:32:58] Stopped heating POD_4
+[08:37:27] Started heating POD_4
+[08:37:52] Stopped heating POD_4
+[08:42:24] Started heating POD_4
+[08:42:49] Stopped heating POD_4
+[08:47:19] Started heating POD_4
+[08:47:44] Stopped heating POD_4
+[08:52:16] Started heating POD_4
+[08:52:40] Stopped heating POD_4
+[08:57:08] Started heating POD_4
+[08:57:33] Stopped heating POD_4
+[09:02:02] Started heating POD_4
+[09:02:27] Stopped heating POD_4
+[09:06:56] Started heating POD_4
+[09:07:04] Connection lost!
+[09:07:20] Stopped heating POD_4
+[09:07:29] Connection obtained!
+[09:11:50] Started heating POD_4
+[09:12:15] Stopped heating POD_4
+[09:16:52] Started heating POD_4
+[09:17:17] Stopped heating POD_4
+[09:22:05] Started heating POD_4
+[09:22:30] Stopped heating POD_4
+[09:27:50] Started heating POD_4
+[09:28:16] Stopped heating POD_4
+[09:34:31] Started heating POD_4
+[09:34:58] Stopped heating POD_4
+[09:42:41] Started heating POD_4
+[09:43:09] Stopped heating POD_4
+[09:52:41] Started heating POD_4
+[09:53:09] Stopped heating POD_4
+[09:56:39] GROUNDSTATION : SET_ACTIVE POD_4
+[09:56:39] Deactivated actuator and heater of POD_4
+[09:56:39] Command executed!
+[09:57:02] GROUNDSTATION : OVR_HEAT_ENABLE
+[09:57:02] Heater of POD_4 overridden to ENABLED state
+[09:57:02] Command executed!
+[09:57:02] Started heating POD_4
+[09:57:56] GROUNDSTATION : OVR_HEAT_DISABLE
+[09:57:56] Heater of POD_4 overridden to DISABLED state
+[09:57:56] Command executed!
+[09:57:56] Stopped heating POD_4
+[09:58:42] GROUNDSTATION : OVR_ACT_CLOSE
+[09:58:42] Actuator of POD_4 overridden to CLOSED state
+[09:58:42] Locking actuator!
+[09:58:42] Command executed!
+[09:58:42] Started extending actuator of POD_4 (Closing)
+[09:58:42] Extending actuator of POD_4
+[09:58:55] Halted actuator of POD_4
+[09:58:55] Halting actuator of POD_4
+[09:58:55] No camera or SD card found.
+[09:59:23] GROUNDSTATION : OVR_ACT_HALT
+[09:59:23] Halted actuator of POD_4
+[09:59:23] Command executed!
